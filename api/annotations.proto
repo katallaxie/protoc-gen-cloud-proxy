@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package amazon.api;
+
+import "api/mapping.proto";
+import "google/protobuf/descriptor.proto";
+
+option go_package = "github.com/awslabs/protoc-gen-aws-service-proxy/api;annotations";
+
+extend google.protobuf.MethodOptions {
+  Services services = 12345678;
+}
