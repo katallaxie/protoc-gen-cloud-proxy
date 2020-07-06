@@ -76,7 +76,29 @@ message Update {
 }
 ```
 
-The included `protoc-gen-aws-service-proxy` generates a fully functioning proxy from the [Protobuf](https://developers.google.com/protocol-buffers).
+The included plugin generates a fully functioning proxy from the [Protobuf](https://developers.google.com/protocol-buffers). The current code is generated in the [Go](https://golang.org/) programming language, but there is room for other languages.
+
+If you want to compile the full [example/example.proto](example.proto) you have to run the following command.
+
+```bash
+go build -o bin/protoc-gen-aws-service-proxy main.go && protoc --go_out=plugins=grpc:. --go_opt=paths=source_relative --aws-service-proxy_out=. --plugin=bin/protoc-gen-aws-service-proxy -I ./ example/example.proto
+```
+
+## Install
+
+```bash
+go get -u github.com/awslabs/protoc-gen-aws-service-proxy
+```
+
+## Future
+
+There are several services waiting to be get supported
+
+- [x] AWS Lambda
+- [ ] Amazon DynamoDB
+- [ ] Amazon SQS
+- [ ] Amazon SNS
+- [ ] Amazon MSK
 
 ## License
 
