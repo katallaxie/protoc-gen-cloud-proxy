@@ -1,0 +1,30 @@
+{
+  "name": "tools",
+  "version": "1.0.0",
+  "description": "Shared Tools",
+  "private": true,
+  "files": [
+    ".eslintrc.js",
+    ".lintstagedrc.js",
+    "jest.config.js",
+    "prettier.config.js"
+  ],
+  "scripts": {
+    "test": "./task test",
+    "precommit": "",
+    "clean": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-github": "^3.4.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "eslint-plugin-prettier": "^3.1.2"
+  },
+  "devDependencies": {
+  }
+}

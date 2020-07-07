@@ -1,0 +1,25 @@
+{
+  "name": "@amzn/protoc-gen-aws-service-proxy",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/custom-bootstrap",
+      "**/custom-bootstrap/**",
+      "**/@types/**"
+    ]
+  },
+  "devDependencies": {
+    "lerna": "^3.19.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.2.6"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lerna exec 'npm run-script precommit'"
+    }
+  },
+  "dependencies": {}
+}

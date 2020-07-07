@@ -1,0 +1,13 @@
+{
+  "packages": [
+    "packages/*"
+  ],
+  "npmClient": "yarn",
+  "nohoist": [
+    "@types/node",
+    "@types/jest"
+  ],
+  "useWorkspaces": true,
+  "rejectCycles": "true",
+  "version": "0.0.0"
+}

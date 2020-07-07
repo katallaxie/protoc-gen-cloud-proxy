@@ -1,4 +1,4 @@
-  
+
 syntax = "proto3";
 
 package proto;
@@ -11,19 +11,37 @@ service Example {
   // Insert ...
   rpc Insert(Insert.Request) returns (Insert.Response) {
     option (amazon.api.services).lambda = {
-      function_name: "arn:aws:lambda:us-east-2:123456789012:function:my-function:1"
+      function_name: "arn:aws:lambda:us-east-2:123456789012:function:my-function",
+      qualifier: "$LATEST"
     };
   };
-  
+
   // Update ...
   rpc Update(Update.Request) returns (Update.Response) {
     option (amazon.api.services).dynamodb.UpdateItem = {
       TableName: "aws-grpc-service-proxy"
-      ReturnValues: "ALL_NEW"
-      UpdateExpression: "SET #Y = :y, #AT = :t"
-      ExpressionAttributeNames: [
-        { key: "key", value: "value" }
-      ]
+      ExpressionAttributeNames: map[string]*string{
+        "#AT": aws.String("AlbumTitle"),
+        "#Y":  aws.String("Year"),
+      },
+      ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
+        ":t": {
+            S: aws.String("Louder Than Ever"),
+        },
+        ":y": {
+            N: aws.String("2015"),
+        },
+      },
+      Key: map[string]*dynamodb.AttributeValue{
+        "Artist": {
+            S: aws.String("Acme Band"),
+        },
+        "SongTitle": {
+            S: aws.String("Happy Day"),
+        },
+      },
+      ReturnValues:     aws.String("ALL_NEW"),
+      UpdateExpression: aws.String("SET #Y = :y, #AT = :t"),
     };
   };
 }

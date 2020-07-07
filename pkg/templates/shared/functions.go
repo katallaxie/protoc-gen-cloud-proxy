@@ -36,6 +36,7 @@ func proxyContext(m pgs.Method) (ProxyContext, error) {
 	}
 
 	ctx.Typ = resolveService(&services)
+	ctx.Services = &services
 
 	if ctx.Typ == "error" {
 		return ctx, fmt.Errorf("unknown template type")

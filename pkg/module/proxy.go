@@ -25,10 +25,6 @@ func (m *Module) InitContext(ctx pgs.BuildContext) {
 func (m *Module) Name() string { return "proxy" }
 
 func (m *Module) Execute(targets map[string]pgs.File, pkgs map[string]pgs.Package) []pgs.Artifact {
-	// // Process file-level templates
-	// tpls := templates.Template(m.Parameters())[lang]
-	// m.Assert(tpls != nil, "could not find templates for `lang`: ", lang)
-
 	buf := &bytes.Buffer{}
 
 	for _, f := range targets {
