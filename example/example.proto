@@ -10,7 +10,7 @@ import "api/annotations.proto";
 service Example {
   // Insert ...
   rpc Insert(Insert.Request) returns (Insert.Response) {
-    option (amazon.api.services).lambda = {
+    option (amazon.api.methods).lambda = {
       function_name: "arn:aws:lambda:us-east-2:123456789012:function:my-function",
       qualifier: "$LATEST"
     };
@@ -18,49 +18,35 @@ service Example {
 
   // Update ...
   rpc Update(Update.Request) returns (Update.Response) {
-    option (amazon.api.services).dynamodb.UpdateItem = {
-      TableName: "aws-grpc-service-proxy"
-      ExpressionAttributeNames: map[string]*string{
-        "#AT": aws.String("AlbumTitle"),
-        "#Y":  aws.String("Year"),
-      },
-      ExpressionAttributeValues: map[string]*dynamodb.AttributeValue{
-        ":t": {
-            S: aws.String("Louder Than Ever"),
-        },
-        ":y": {
-            N: aws.String("2015"),
-        },
-      },
-      Key: map[string]*dynamodb.AttributeValue{
-        "Artist": {
-            S: aws.String("Acme Band"),
-        },
-        "SongTitle": {
-            S: aws.String("Happy Day"),
-        },
-      },
-      ReturnValues:     aws.String("ALL_NEW"),
-      UpdateExpression: aws.String("SET #Y = :y, #AT = :t"),
+    option (amazon.api.methods).dynamodb.UpdateItem = {
+      ExpressionAttributeNames: [
+        { key: "#AT", value: "AlbumTitle" },
+        { key: "#Y", value: "Year" }
+      ]
+      ReturnValues:     "ALL_NEW",
+      TableName:        "Music",
+      UpdateExpression: "SET #Y = :y, #AT = :t"
     };
   };
 }
 
-// Item ...
-message Item {
- // UUID ...
-  string uuid   = 1;
-  // Title ...
-  string title  = 2;
-  // Body ...
-  string body   = 3;
+// Song ...
+message Song {
+ // Artist ...
+  string artist       = 1 [(amazon.api.fields).dynamodb = { Key: "Artist" }];
+  // SongTitle ...
+  string song_title   = 2 [(amazon.api.fields).dynamodb = { Key: "SongTitle" }];
+  // AlbumTitle ...
+  string album_title  = 3 [(amazon.api.fields).dynamodb = { ExpressionValue: ":t" }];
+  // Year ...
+  string year         = 4 [(amazon.api.fields).dynamodb = { ExpressionValue: ":y" }];
 }
 
 // Insert ...
 message Insert {
   // Request ...
   message Request {
-    Item item = 1;
+    Song Song = 1;
   }
   // Response ...
   message Response {
@@ -72,7 +58,7 @@ message Insert {
 message Update {
   // Request ...
   message Request {
-    Item item = 1;
+    Song song = 1;
   }
   // Response ...
   message Response {
@@ -80,14 +66,14 @@ message Update {
   }
 }
 
-// ListItems ...
-message ListItems {
+// ListSongs ...
+message ListSongs {
   // Request ...
   message Request {
   }
   // Response ...
   message Response {
-    repeated Item items = 1;
+    repeated Song songs = 1;
   }
 }
 

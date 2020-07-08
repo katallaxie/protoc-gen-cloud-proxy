@@ -30,13 +30,13 @@ func proxyContext(m pgs.Method) (ProxyContext, error) {
 	ctx := ProxyContext{}
 	ctx.Method = m
 
-	var services api.Services
-	if _, err := m.Extension(api.E_Services, &services); err != nil {
+	var services api.Methods
+	if _, err := m.Extension(api.E_Methods, &services); err != nil {
 		return ctx, err
 	}
 
-	ctx.Typ = resolveService(&services)
-	ctx.Services = &services
+	ctx.Typ = resolveMethods(&services)
+	ctx.Methods = &services
 
 	if ctx.Typ == "error" {
 		return ctx, fmt.Errorf("unknown template type")
@@ -45,12 +45,12 @@ func proxyContext(m pgs.Method) (ProxyContext, error) {
 	return ctx, nil
 }
 
-func resolveService(services *api.Services) string {
-	if services.GetLambda() != nil {
+func resolveMethods(m *api.Methods) string {
+	if m.GetLambda() != nil {
 		return "lambda"
 	}
 
-	if services.GetDynamodb() != nil {
+	if m.GetDynamodb() != nil {
 		return "dynamodb"
 	}
 

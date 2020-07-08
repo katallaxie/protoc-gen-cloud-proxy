@@ -132,38 +132,38 @@ func main() {
 	}
 }
 
-// ItemJSONMarshaler describes the default jsonpb.Marshaler used by all
-// instances of ItemJSONMarshaler This struct is safe to replace or modify but
+// SongJSONMarshaler describes the default jsonpb.Marshaler used by all
+// instances of SongJSONMarshaler This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ItemJSONMarshaler = new(jsonpb.Marshaler)
+var SongJSONMarshaler = new(jsonpb.Marshaler)
 
 // MarshalJSON satisfies the encoding/json Marshaler interface. This method
 // uses the more correct jsonpb package to correctly marshal the message.
-func (m *Item) MarshalJSON() ([]byte, error) {
+func (m *Song) MarshalJSON() ([]byte, error) {
 	if m == nil {
 		return json.Marshal(nil)
 	}
 	buf := &bytes.Buffer{}
-	if err := ItemJSONMarshaler.Marshal(buf, m); err != nil {
+	if err := SongJSONMarshaler.Marshal(buf, m); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
 }
 
-var _ json.Marshaler = (*Item)(nil)
+var _ json.Marshaler = (*Song)(nil)
 
-// ItemJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
-// instances of Item. This struct is safe to replace or modify but
+// SongJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
+// instances of Song. This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ItemJSONUnmarshaler = new(jsonpb.Unmarshaler)
+var SongJSONUnmarshaler = new(jsonpb.Unmarshaler)
 
 // UnmarshalJSON satisfies the encoding/json Unmarshaler interface. This method
 // uses the more correct jsonpb package to correctly unmarshal the message.
-func (m *Item) UnmarshalJSON(b []byte) error {
-	return ItemJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
+func (m *Song) UnmarshalJSON(b []byte) error {
+	return SongJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
 }
 
-var _ json.Unmarshaler = (*Item)(nil)
+var _ json.Unmarshaler = (*Song)(nil)
 
 // InsertJSONMarshaler describes the default jsonpb.Marshaler used by all
 // instances of InsertJSONMarshaler This struct is safe to replace or modify but
@@ -363,104 +363,104 @@ func (m *Update_Response) UnmarshalJSON(b []byte) error {
 
 var _ json.Unmarshaler = (*Update_Response)(nil)
 
-// ListItemsJSONMarshaler describes the default jsonpb.Marshaler used by all
-// instances of ListItemsJSONMarshaler This struct is safe to replace or modify but
+// ListSongsJSONMarshaler describes the default jsonpb.Marshaler used by all
+// instances of ListSongsJSONMarshaler This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItemsJSONMarshaler = new(jsonpb.Marshaler)
+var ListSongsJSONMarshaler = new(jsonpb.Marshaler)
 
 // MarshalJSON satisfies the encoding/json Marshaler interface. This method
 // uses the more correct jsonpb package to correctly marshal the message.
-func (m *ListItems) MarshalJSON() ([]byte, error) {
+func (m *ListSongs) MarshalJSON() ([]byte, error) {
 	if m == nil {
 		return json.Marshal(nil)
 	}
 	buf := &bytes.Buffer{}
-	if err := ListItemsJSONMarshaler.Marshal(buf, m); err != nil {
+	if err := ListSongsJSONMarshaler.Marshal(buf, m); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
 }
 
-var _ json.Marshaler = (*ListItems)(nil)
+var _ json.Marshaler = (*ListSongs)(nil)
 
-// ListItemsJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
-// instances of ListItems. This struct is safe to replace or modify but
+// ListSongsJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
+// instances of ListSongs. This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItemsJSONUnmarshaler = new(jsonpb.Unmarshaler)
+var ListSongsJSONUnmarshaler = new(jsonpb.Unmarshaler)
 
 // UnmarshalJSON satisfies the encoding/json Unmarshaler interface. This method
 // uses the more correct jsonpb package to correctly unmarshal the message.
-func (m *ListItems) UnmarshalJSON(b []byte) error {
-	return ListItemsJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
+func (m *ListSongs) UnmarshalJSON(b []byte) error {
+	return ListSongsJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
 }
 
-var _ json.Unmarshaler = (*ListItems)(nil)
+var _ json.Unmarshaler = (*ListSongs)(nil)
 
-// ListItems_RequestJSONMarshaler describes the default jsonpb.Marshaler used by all
-// instances of ListItems_RequestJSONMarshaler This struct is safe to replace or modify but
+// ListSongs_RequestJSONMarshaler describes the default jsonpb.Marshaler used by all
+// instances of ListSongs_RequestJSONMarshaler This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItems_RequestJSONMarshaler = new(jsonpb.Marshaler)
+var ListSongs_RequestJSONMarshaler = new(jsonpb.Marshaler)
 
 // MarshalJSON satisfies the encoding/json Marshaler interface. This method
 // uses the more correct jsonpb package to correctly marshal the message.
-func (m *ListItems_Request) MarshalJSON() ([]byte, error) {
+func (m *ListSongs_Request) MarshalJSON() ([]byte, error) {
 	if m == nil {
 		return json.Marshal(nil)
 	}
 	buf := &bytes.Buffer{}
-	if err := ListItems_RequestJSONMarshaler.Marshal(buf, m); err != nil {
+	if err := ListSongs_RequestJSONMarshaler.Marshal(buf, m); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
 }
 
-var _ json.Marshaler = (*ListItems_Request)(nil)
+var _ json.Marshaler = (*ListSongs_Request)(nil)
 
-// ListItems_RequestJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
-// instances of ListItems_Request. This struct is safe to replace or modify but
+// ListSongs_RequestJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
+// instances of ListSongs_Request. This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItems_RequestJSONUnmarshaler = new(jsonpb.Unmarshaler)
+var ListSongs_RequestJSONUnmarshaler = new(jsonpb.Unmarshaler)
 
 // UnmarshalJSON satisfies the encoding/json Unmarshaler interface. This method
 // uses the more correct jsonpb package to correctly unmarshal the message.
-func (m *ListItems_Request) UnmarshalJSON(b []byte) error {
-	return ListItems_RequestJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
+func (m *ListSongs_Request) UnmarshalJSON(b []byte) error {
+	return ListSongs_RequestJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
 }
 
-var _ json.Unmarshaler = (*ListItems_Request)(nil)
+var _ json.Unmarshaler = (*ListSongs_Request)(nil)
 
-// ListItems_ResponseJSONMarshaler describes the default jsonpb.Marshaler used by all
-// instances of ListItems_ResponseJSONMarshaler This struct is safe to replace or modify but
+// ListSongs_ResponseJSONMarshaler describes the default jsonpb.Marshaler used by all
+// instances of ListSongs_ResponseJSONMarshaler This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItems_ResponseJSONMarshaler = new(jsonpb.Marshaler)
+var ListSongs_ResponseJSONMarshaler = new(jsonpb.Marshaler)
 
 // MarshalJSON satisfies the encoding/json Marshaler interface. This method
 // uses the more correct jsonpb package to correctly marshal the message.
-func (m *ListItems_Response) MarshalJSON() ([]byte, error) {
+func (m *ListSongs_Response) MarshalJSON() ([]byte, error) {
 	if m == nil {
 		return json.Marshal(nil)
 	}
 	buf := &bytes.Buffer{}
-	if err := ListItems_ResponseJSONMarshaler.Marshal(buf, m); err != nil {
+	if err := ListSongs_ResponseJSONMarshaler.Marshal(buf, m); err != nil {
 		return nil, err
 	}
 	return buf.Bytes(), nil
 }
 
-var _ json.Marshaler = (*ListItems_Response)(nil)
+var _ json.Marshaler = (*ListSongs_Response)(nil)
 
-// ListItems_ResponseJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
-// instances of ListItems_Response. This struct is safe to replace or modify but
+// ListSongs_ResponseJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
+// instances of ListSongs_Response. This struct is safe to replace or modify but
 // should not be done so concurrently.
-var ListItems_ResponseJSONUnmarshaler = new(jsonpb.Unmarshaler)
+var ListSongs_ResponseJSONUnmarshaler = new(jsonpb.Unmarshaler)
 
 // UnmarshalJSON satisfies the encoding/json Unmarshaler interface. This method
 // uses the more correct jsonpb package to correctly unmarshal the message.
-func (m *ListItems_Response) UnmarshalJSON(b []byte) error {
-	return ListItems_ResponseJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
+func (m *ListSongs_Response) UnmarshalJSON(b []byte) error {
+	return ListSongs_ResponseJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
 }
 
-var _ json.Unmarshaler = (*ListItems_Response)(nil)
+var _ json.Unmarshaler = (*ListSongs_Response)(nil)
 
 // EmptyJSONMarshaler describes the default jsonpb.Marshaler used by all
 // instances of EmptyJSONMarshaler This struct is safe to replace or modify but

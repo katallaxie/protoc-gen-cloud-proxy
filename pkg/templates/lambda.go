@@ -8,9 +8,9 @@ if err != nil {
 
 svc := lambda.New(session.New())
 input := &lambda.InvokeInput{
-	FunctionName: aws.String("{{ .Services.GetLambda.FunctionName }}"),
+	FunctionName: aws.String("{{ .Methods.GetLambda.FunctionName }}"),
   Payload:      b,
-  {{ if .Services.GetLambda.Qualifier }} Qualifier: "{{ .Services.GetLambda.Qualifier }}", {{ end }}
+  {{ if .Methods.GetLambda.Qualifier }} Qualifier: "{{ .Methods.GetLambda.Qualifier }}", {{ end }}
 }
 
 result, err := svc.Invoke(input)

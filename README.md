@@ -23,14 +23,14 @@ import "api/annotations.proto";
 service Example {
   // Insert ...
   rpc Insert(Insert.Request) returns (Insert.Response) {
-    option (amazon.api.services).lambda = {
+    option (amazon.api.methods).lambda = {
       function_name: "arn:aws:lambda:us-east-2:123456789012:function:my-function:1"
     };
   };
 
   // Update ...
   rpc Update(Update.Request) returns (Update.Response) {
-    option (amazon.api.services).dynamodb.UpdateItem = {
+    option (amazon.api.methods).dynamodb.UpdateItem = {
       TableName: "aws-grpc-service-proxy"
       ReturnValues: "ALL_NEW"
       UpdateExpression: "SET #Y = :y, #AT = :t"
