@@ -1,0 +1,101 @@
+syntax = "proto3";
+
+package amazon.api;
+
+option cc_enable_arenas = true;
+option go_package = "github.com/awslabs/protoc-gen-aws-service-proxy/api;annotations";
+
+message Methods {
+  string selector = 1;
+
+  message Lambda {
+    string function_name  = 1;
+    string qualifier      = 2;
+  }
+
+  message DynamoDB {
+    message AttributValue {
+      bytes B                     = 1;
+      bool BOOL                   = 2;
+      repeated bytes BS           = 3;
+      repeated AttributValue L    = 4;
+      map<string,AttributValue> M = 5;
+      string N                    = 6;
+      repeated string NS          = 7;
+      bool NULL                   = 8;
+      string S                    = 9;
+      repeated string SS          = 10;
+    }
+
+    message GetItemInput {
+      repeated string AttributesToGet             = 1;
+      bool ConsistentRead                         = 2;
+      map<string,string> ExpressionAttributeNames = 3;
+      string ProjectionExpression                 = 4;
+      string ReturnConsumedCapacity               = 5;
+      string TableName                            = 6;
+    }
+
+    message PutItemInput {
+      string TableName    = 1;
+      string ReturnValues = 2;
+      string ReturnItemCollectionMetrics = 3;
+      string ReturnConsumedCapacity = 4;
+      string ConditionExpression    = 5;
+      string ConditionalOperator    = 6;
+      map<string,string> ExpressionAttributeNames = 7;
+    }
+
+    message UpdateItemInput {
+      string TableName    = 1;
+      string ReturnValues = 2;
+      string ReturnItemCollectionMetrics = 3;
+      string ConditionExpression = 4;
+      string ConditionalOperator = 5;
+      string ReturnConsumedCapacity = 6;
+      map<string,string> ExpressionAttributeNames  = 7;
+      string UpdateExpression = 9;
+    }
+
+    message DeleteItemInput {
+
+    }
+
+    message QueryInput {
+
+    }
+
+    message ScanInput {
+
+    }
+
+    oneof input {
+      GetItemInput GetItem = 10;
+      PutItemInput PutItem = 11;
+      UpdateItemInput UpdateItem = 12;
+      DeleteItemInput DeleteItem = 13;
+      QueryInput Query = 14;
+      ScanInput Scan = 15;
+    }
+  }
+
+  message SQS {
+    string queue_url      = 1;
+  }
+
+  message MSK {
+    repeated string bootstrap_server  = 1;
+  }
+
+  message Kinesis {
+    string stream_arn     = 1;
+  }
+
+  oneof pattern {
+    Lambda lambda       = 2;
+    DynamoDB dynamodb   = 3;
+    SQS sqs             = 4;
+    MSK msk             = 5;
+    Kinesis kinesis     = 6;
+  }
+}
