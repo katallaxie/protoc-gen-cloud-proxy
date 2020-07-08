@@ -21,6 +21,7 @@ import (
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
@@ -556,7 +557,7 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 	input := &lambda.InvokeInput{
 		FunctionName: aws.String("arn:aws:lambda:us-east-2:123456789012:function:my-function"),
 		Payload:      b,
-		Qualifier:    "$LATEST",
+		Qualifier:    aws.String("$LATEST"),
 	}
 
 	result, err := svc.Invoke(input)
@@ -576,6 +577,19 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 // Here goes a message Update
 
 func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Response, error) {
+
+	svc := dynamodb.New(session.New())
+
+	input := &dynamodb.UpdateItemInput{
+		ReturnValues:     aws.String("ALL_NEW"),
+		TableName:        aws.String("Music"),
+		UpdateExpression: aws.String("SET #Y = :y, #AT = :t"),
+	}
+
+	_, err := svc.UpdateItem(input)
+	if err != nil {
+		return nil, err
+	}
 
 	// DynamoDB
 	return nil, nil

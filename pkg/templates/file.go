@@ -24,9 +24,10 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
-	"github.com/aws/aws-sdk-go/aws"
+  "github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/lambda"
+  "github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
 // RootCmd ...

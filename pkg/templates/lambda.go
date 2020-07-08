@@ -10,7 +10,7 @@ svc := lambda.New(session.New())
 input := &lambda.InvokeInput{
 	FunctionName: aws.String("{{ .Methods.GetLambda.FunctionName }}"),
   Payload:      b,
-  {{ if .Methods.GetLambda.Qualifier }} Qualifier: "{{ .Methods.GetLambda.Qualifier }}", {{ end }}
+  {{ if .Methods.GetLambda.Qualifier }} Qualifier: aws.String("{{ .Methods.GetLambda.Qualifier }}"), {{ end }}
 }
 
 result, err := svc.Invoke(input)
