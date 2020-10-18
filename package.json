@@ -1,5 +1,5 @@
 {
-  "name": "@amzn/protoc-gen-aws-service-proxy",
+  "name": "cloud-grpc-proxy",
   "private": true,
   "workspaces": {
     "packages": [
