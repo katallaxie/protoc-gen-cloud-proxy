@@ -6,7 +6,7 @@ import "api/methods.proto";
 import "api/fields.proto";
 import "google/protobuf/descriptor.proto";
 
-option go_package = "github.com/awslabs/protoc-gen-aws-service-proxy/api;annotations";
+option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;annotations";
 
 extend google.protobuf.MethodOptions {
   Methods methods = 12345678;

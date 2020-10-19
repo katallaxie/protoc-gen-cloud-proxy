@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"io"
 
-	"github.com/awslabs/protoc-gen-aws-service-proxy/pkg/templates"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/templates"
 
 	pgs "github.com/lyft/protoc-gen-star"
 	pgsgo "github.com/lyft/protoc-gen-star/lang/go"

@@ -1,4 +1,4 @@
-# cloud-grpc-poxy
+# protoc-gen-cloud-proxy
 
 [![License Apache 2](https://img.shields.io/badge/License-Apache2-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 
@@ -87,7 +87,7 @@ go build -o bin/protoc-gen-aws-service-proxy main.go && protoc --go_out=plugins=
 ## Install
 
 ```bash
-go get -u github.com/awslabs/protoc-gen-aws-service-proxy
+go get -u github.com/katallaxie/protoc-gen-cloud-proxy
 ```
 
 ## Future

@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"text/template"
 
-	api "github.com/awslabs/protoc-gen-aws-service-proxy/api"
+	api "github.com/katallaxie/protoc-gen-cloud-proxy/api"
 
 	pgs "github.com/lyft/protoc-gen-star"
 	pgsgo "github.com/lyft/protoc-gen-star/lang/go"

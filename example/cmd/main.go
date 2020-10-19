@@ -1,12 +1,12 @@
 package main
 
 import (
-  "time"
-  "os"
-  "math/rand"
-  "fmt"
+	"fmt"
+	"math/rand"
+	"os"
+	"time"
 
-  pb "github.com/awslabs/protoc-gen-aws-service-proxy/example"
+	pb "github.com/katallaxie/protoc-gen-cloud-proxy/example"
 )
 
 func init() {

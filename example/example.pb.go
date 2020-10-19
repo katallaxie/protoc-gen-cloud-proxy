@@ -8,9 +8,9 @@ package proto
 
 import (
 	context "context"
-	_ "github.com/awslabs/protoc-gen-aws-service-proxy/api"
 	proto "github.com/golang/protobuf/proto"
 	_ "github.com/golang/protobuf/ptypes/timestamp"
+	_ "github.com/katallaxie/protoc-gen-cloud-proxy/api"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"

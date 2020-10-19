@@ -1,4 +1,4 @@
-module github.com/awslabs/protoc-gen-aws-service-proxy
+module github.com/katallaxie/protoc-gen-cloud-proxy
 
 go 1.14
 

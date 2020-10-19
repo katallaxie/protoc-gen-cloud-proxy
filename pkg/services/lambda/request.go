@@ -3,7 +3,7 @@ package lambda
 import (
 	"github.com/valyala/fasthttp"
 
-	"github.com/awslabs/protoc-gen-aws-service-proxy/pkg/services"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/services"
 )
 
 type InvocationType string

@@ -3,7 +3,7 @@ package lambda
 import (
 	"fmt"
 
-	"github.com/awslabs/protoc-gen-aws-service-proxy/pkg/config"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/config"
 )
 
 type Config struct {

@@ -3,7 +3,7 @@ package templates
 import (
 	"text/template"
 
-	"github.com/awslabs/protoc-gen-aws-service-proxy/pkg/templates/shared"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/templates/shared"
 	pgs "github.com/lyft/protoc-gen-star"
 )
 

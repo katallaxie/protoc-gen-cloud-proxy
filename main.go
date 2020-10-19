@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/awslabs/protoc-gen-aws-service-proxy/pkg/module"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/module"
 
 	pgs "github.com/lyft/protoc-gen-star"
 	pgsgo "github.com/lyft/protoc-gen-star/lang/go"
