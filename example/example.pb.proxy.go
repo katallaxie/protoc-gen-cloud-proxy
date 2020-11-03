@@ -560,17 +560,18 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 		Qualifier:    aws.String("$LATEST"),
 	}
 
-	result, err := svc.Invoke(input)
+	result, err := svc.InvokeWithContext(ctx, input)
 	if err != nil {
 		return nil, err
 	}
 
 	var payload Insert_Response
-	if err := payload.UnmarshalJSON(result.Payload); err != nil {
+	err = payload.UnmarshalJSON(result.Payload)
+	if err != nil {
 		return nil, err
 	}
 
-	return nil, nil
+	return &payload, nil
 
 }
 

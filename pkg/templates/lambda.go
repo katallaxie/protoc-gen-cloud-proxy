@@ -13,7 +13,7 @@ input := &lambda.InvokeInput{
   {{ if .Methods.GetLambda.Qualifier }} Qualifier: aws.String("{{ .Methods.GetLambda.Qualifier }}"), {{ end }}
 }
 
-result, err := svc.Invoke(input)
+result, err := svc.InvokeWithContext(ctx, input)
 if err != nil {
 	return nil, err
 }
