@@ -88,8 +88,6 @@ func runE(cmd *cobra.Command, args []string) error {
 	// init logger
 	root.logger = log.WithFields(log.Fields{
 		"verbose": viper.GetBool("verbose"),
-		"brokers": viper.GetStringSlice("brokers"),
-		"topic":   viper.GetString("topic"),
 	})
 
 	// create root context
@@ -566,12 +564,11 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 	}
 
 	var payload Insert_Response
-	err = payload.UnmarshalJSON(result.Payload)
-	if err != nil {
+	if err := payload.UnmarshalJSON(result.Payload); err != nil {
 		return nil, err
 	}
 
-	return &payload, nil
+	return nil, nil
 
 }
 

@@ -35,6 +35,11 @@ func Method(params pgs.Parameters) (*template.Template, error) {
 	return tpl.Parse(methodTpl)
 }
 
+func MethodServerStreaming(params pgs.Parameters) (*template.Template, error) {
+	tpl := makeTemplate("method", func(tpl *template.Template, params pgs.Parameters) {}, params)
+	return tpl.Parse(methodServerStreamingTpl)
+}
+
 func Message(params pgs.Parameters) (*template.Template, error) {
 	tpl := makeTemplate("message", func(tpl *template.Template, params pgs.Parameters) {}, params)
 	return tpl.Parse(messageTpl)

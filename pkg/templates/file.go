@@ -90,8 +90,6 @@ func runE(cmd *cobra.Command, args []string) error {
 	// init logger
 	root.logger = log.WithFields(log.Fields{
 		"verbose": viper.GetBool("verbose"),
-		"brokers": viper.GetStringSlice("brokers"),
-		"topic":   viper.GetString("topic"),
 	})
 
 	// create root context
