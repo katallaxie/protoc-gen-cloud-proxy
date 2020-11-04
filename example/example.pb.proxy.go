@@ -9,7 +9,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"math"
-	"math/rand"
 	"net"
 	"os"
 	"time"
@@ -118,10 +117,6 @@ func runE(cmd *cobra.Command, args []string) error {
 
 	// noop
 	return nil
-}
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
 }
 
 func main() {
