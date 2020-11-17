@@ -1,10 +1,12 @@
 package main
 
 import (
-	"fmt"
+	"context"
 	"math/rand"
-	"os"
 	"time"
+
+	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
 
 	pb "github.com/katallaxie/protoc-gen-cloud-proxy/example"
 )
@@ -14,8 +16,13 @@ func init() {
 }
 
 func main() {
-	if err := pb.RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	p := proxy.New()
+	srv := pb.NewService(o.WithVerbose())
+
+	if err := p.Start(ctx, srv); err != nil {
+		panic(err)
 	}
 }

@@ -3,13 +3,24 @@ package templates
 const serviceTpl = `
 
 type srv struct {
+	opts *o.Opts
 }
 
 type service struct {
 	tlsCfg *tls.Config
-	Unimplemented{{ name . }}
+	UnimplementedExampleServer
 }
 
+func NewService(opts ...o.Opt) server.Listener {
+	options := o.New()
+
+	s := new(srv)
+	s.opts = options
+
+	o.Configure(options, opts...)
+
+	return &srv{}
+}
 
 func (s *srv) Start(ctx context.Context, ready func()) func() error {
 	return func() error {
@@ -41,7 +52,7 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 		Register{{ name . }}(ss, srv)
 		// health.RegisterHealthServer(ss, srv)
 
-		ready()
+    ready()
 
 		if err := ss.Serve(lis); err != nil {
 			return err

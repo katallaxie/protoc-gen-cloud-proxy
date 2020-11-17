@@ -3,7 +3,7 @@ module github.com/katallaxie/protoc-gen-cloud-proxy
 go 1.14
 
 require (
-	github.com/andersnormal/pkg v0.0.0-20190904210201-9dfdf11cc13f
+	github.com/andersnormal/pkg v0.0.0-20200822073041-145047024b6c
 	github.com/aws/aws-sdk-go v1.35.14
 	github.com/golang/protobuf v1.4.3
 	github.com/kr/pretty v0.2.1 // indirect

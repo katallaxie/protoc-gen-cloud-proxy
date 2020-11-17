@@ -16,8 +16,8 @@ type proxy struct {
 
 // Proxy ...
 type Proxy interface {
-	// WithContext ...
-	WithContext(context.Context, Listener) error
+	// Start ...
+	Start(context.Context, Listener) error
 }
 
 // Listener
@@ -42,7 +42,7 @@ func New(opts ...Opt) Proxy {
 }
 
 // WithContext ...
-func (p *proxy) WithContext(ctx context.Context, l Listener) error {
+func (p *proxy) Start(ctx context.Context, l Listener) error {
 	// create root context
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

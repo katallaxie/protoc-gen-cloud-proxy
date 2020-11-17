@@ -10,12 +10,10 @@ import (
 	"fmt"
 	"math"
 	"net"
-	"os"
 	"time"
 
 	"github.com/andersnormal/pkg/server"
-	log "github.com/sirupsen/logrus"
-	"github.com/spf13/cobra"
+	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 	"github.com/spf13/viper"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -26,105 +24,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 )
-
-// RootCmd ...
-var RootCmd = &cobra.Command{
-	Use:   "server",
-	Short: "Runs the gRPC service",
-	RunE:  runE,
-}
-
-func addFlags(cmd *cobra.Command) {
-	cmd.Flags().String("log-format", "text", "log format")
-	cmd.Flags().String("log-level", "info", "log-level")
-	cmd.Flags().String("addr", ":9090", "address")
-
-	// set the link between flags
-	viper.BindPFlag("log-format", cmd.Flags().Lookup("log-format"))
-	viper.BindPFlag("log-level", cmd.Flags().Lookup("log-level"))
-	viper.BindPFlag("addr", cmd.Flags().Lookup("addr"))
-}
-
-func init() {
-	// initialize cobra
-	cobra.OnInitialize(initConfig)
-
-	// adding flags
-	addFlags(RootCmd)
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	// set the default format, which is basically text
-	log.SetFormatter(&log.TextFormatter{})
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// config logger
-	logConfig()
-}
-
-func logConfig() {
-	// reset log format
-	if viper.GetString("log-format") == "json" {
-		log.SetFormatter(&log.JSONFormatter{})
-	}
-
-	// set the configured log level
-	if level, err := log.ParseLevel(viper.GetString("log-level")); err == nil {
-		log.SetLevel(level)
-	}
-}
-
-type root struct {
-	logger *log.Entry
-}
-
-func runE(cmd *cobra.Command, args []string) error {
-	// create a new root
-	root := new(root)
-
-	// init logger
-	root.logger = log.WithFields(log.Fields{
-		"verbose": viper.GetBool("verbose"),
-	})
-
-	// create root context
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	// create server
-	s, _ := server.WithContext(ctx)
-
-	// log ...
-	root.logger.Info("Starting server ...")
-
-	// debug listener
-	debug := server.NewDebugListener(
-		server.WithPprof(),
-		server.WithStatusAddr(":8443"),
-	)
-	s.Listen(debug, true)
-
-	// listen for grpc
-	s.Listen(&srv{}, true)
-
-	// listen for the server and wait for it to fail,
-	// or for sys interrupts
-	if err := s.Wait(); err != nil {
-		root.logger.Error(err)
-	}
-
-	// noop
-	return nil
-}
-
-func main() {
-	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
 
 // SongJSONMarshaler describes the default jsonpb.Marshaler used by all
 // instances of SongJSONMarshaler This struct is safe to replace or modify but
@@ -490,11 +389,23 @@ func (m *Empty) UnmarshalJSON(b []byte) error {
 var _ json.Unmarshaler = (*Empty)(nil)
 
 type srv struct {
+	opts *o.Opts
 }
 
 type service struct {
 	tlsCfg *tls.Config
 	UnimplementedExampleServer
+}
+
+func NewService(opts ...o.Opt) server.Listener {
+	options := o.New()
+
+	s := new(srv)
+	s.opts = options
+
+	o.Configure(options, opts...)
+
+	return &srv{}
 }
 
 func (s *srv) Start(ctx context.Context, ready func()) func() error {

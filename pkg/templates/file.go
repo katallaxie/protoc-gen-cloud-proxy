@@ -6,8 +6,6 @@ package {{ pkg . }}
 
 import (
 	"fmt"
-	"math/rand"
-	"os"
 	"time"
 	"bytes"
 	"context"
@@ -16,9 +14,8 @@ import (
 	"math"
 	"net"
 
-	"github.com/andersnormal/pkg/server"
-	log "github.com/sirupsen/logrus"
-	"github.com/spf13/cobra"
+  "github.com/andersnormal/pkg/server"
+  o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 	"github.com/spf13/viper"
 
 	"github.com/golang/protobuf/jsonpb"
@@ -29,107 +26,4 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
   "github.com/aws/aws-sdk-go/service/dynamodb"
 )
-
-// RootCmd ...
-var RootCmd = &cobra.Command{
-	Use:   "server",
-	Short: "Runs the gRPC service",
-	RunE:  runE,
-}
-
-func addFlags(cmd *cobra.Command) {
-	cmd.Flags().String("log-format", "text", "log format")
-	cmd.Flags().String("log-level", "info", "log-level")
-	cmd.Flags().String("addr", ":9090", "address")
-
-	// set the link between flags
-	viper.BindPFlag("log-format", cmd.Flags().Lookup("log-format"))
-	viper.BindPFlag("log-level", cmd.Flags().Lookup("log-level"))
-	viper.BindPFlag("addr", cmd.Flags().Lookup("addr"))
-}
-
-func init() {
-	// initialize cobra
-	cobra.OnInitialize(initConfig)
-
-	// adding flags
-	addFlags(RootCmd)
-}
-
-// initConfig reads in config file and ENV variables if set.
-func initConfig() {
-	// set the default format, which is basically text
-	log.SetFormatter(&log.TextFormatter{})
-
-	viper.AutomaticEnv() // read in environment variables that match
-
-	// config logger
-	logConfig()
-}
-
-func logConfig() {
-	// reset log format
-	if viper.GetString("log-format") == "json" {
-		log.SetFormatter(&log.JSONFormatter{})
-	}
-
-	// set the configured log level
-	if level, err := log.ParseLevel(viper.GetString("log-level")); err == nil {
-		log.SetLevel(level)
-	}
-}
-
-type root struct {
-	logger *log.Entry
-}
-
-func runE(cmd *cobra.Command, args []string) error {
-	// create a new root
-	root := new(root)
-
-	// init logger
-	root.logger = log.WithFields(log.Fields{
-		"verbose": viper.GetBool("verbose"),
-	})
-
-	// create root context
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	// create server
-	s, _ := server.WithContext(ctx)
-
-	// log ...
-	root.logger.Info("Starting server ...")
-
-	// debug listener
-	debug := server.NewDebugListener(
-		server.WithPprof(),
-		server.WithStatusAddr(":8443"),
-	)
-	s.Listen(debug, true)
-
-	// listen for grpc
-	s.Listen(&srv{}, true)
-
-	// listen for the server and wait for it to fail,
-	// or for sys interrupts
-	if err := s.Wait(); err != nil {
-		root.logger.Error(err)
-	}
-
-	// noop
-	return nil
-}
-
-func init() {
-	rand.Seed(time.Now().UnixNano())
-}
-
-func main() {
-	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
-}
 `
