@@ -16,10 +16,9 @@ func NewService(opts ...o.Opt) server.Listener {
 
 	s := new(srv)
 	s.opts = options
+	s.opts.Configure(opts...)
 
-	o.Configure(options, opts...)
-
-	return &srv{}
+	return s
 }
 
 func (s *srv) Start(ctx context.Context, ready func()) func() error {
@@ -29,7 +28,8 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			return err
 		}
 
-		srv := &service{}
+    ll := s.opts.Logger.With()
+    srv := &service{}
 
 		tlsConfig := &tls.Config{}
 		tlsConfig.InsecureSkipVerify = true
@@ -53,6 +53,8 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 		// health.RegisterHealthServer(ss, srv)
 
     ready()
+
+    ll.Info("start listening")
 
 		if err := ss.Serve(lis); err != nil {
 			return err

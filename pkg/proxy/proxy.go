@@ -5,13 +5,11 @@ import (
 
 	"github.com/andersnormal/pkg/server"
 	"github.com/spf13/cobra"
-	"go.uber.org/zap"
 )
 
 type proxy struct {
-	logger *zap.Logger
-	opts   *Opts
-	cmd    *cobra.Command
+	opts *Opts
+	cmd  *cobra.Command
 }
 
 // Proxy ...

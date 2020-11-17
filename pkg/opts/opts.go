@@ -1,9 +1,15 @@
 package opts
 
+import (
+	"go.uber.org/zap"
+)
+
 // Opts ...
 type Opts struct {
 	// Verbose ...
 	Verbose bool
+	// Logger ...
+	Logger *zap.Logger
 }
 
 // Opt ...
@@ -18,9 +24,9 @@ func New() *Opts {
 }
 
 // Configure ...
-func Configure(opt *Opts, opts ...Opt) error {
+func (s *Opts) Configure(opts ...Opt) error {
 	for _, o := range opts {
-		o(opt)
+		o(s)
 	}
 
 	return nil
@@ -29,6 +35,13 @@ func Configure(opt *Opts, opts ...Opt) error {
 // ConfigureLogger ...
 func ConfigureLogger() error {
 	return nil
+}
+
+// WithLogger ...
+func WithLogger(logger *zap.Logger) Opt {
+	return func(opts *Opts) {
+		opts.Logger = logger
+	}
 }
 
 // WithVerbose ...
