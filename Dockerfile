@@ -1,7 +1,7 @@
 # build stage
 FROM golang:alpine AS build-env
 ENV GOPROXY=direct
-RUN apk --no-cache add build-base git bzr mercurial gcc protoc protobuf protobuf-dev
+RUN apk --no-cache add build-base git mercurial gcc protoc protobuf protobuf-dev
 RUN go get -u github.com/golang/protobuf/protoc-gen-go && \
   go get -u google.golang.org/grpc
 WORKDIR /go/src/app

@@ -6,6 +6,7 @@ import * as elb from '@aws-cdk/aws-elasticloadbalancingv2'
 import * as assets from '@aws-cdk/aws-ecr-assets'
 import * as path from 'path'
 import * as logs from '@aws-cdk/aws-logs'
+import * as ecsPatterns from '@aws-cdk/aws-ecs-patterns'
 
 enum SubnetName {
   Public = 'Public',
@@ -21,8 +22,8 @@ export class Platform extends cdk.Stack {
   public readonly vpc: ec2.Vpc
   public readonly ecsCluster: ecs.Cluster
   public readonly image: cdk.DockerImageAssetLocation
-  public readonly loadbalancer: elb.NetworkLoadBalancer
-  public readonly loadbalancerListener: elb.NetworkListener
+  public readonly loadbalancer: elb.ApplicationLoadBalancer
+  public readonly loadbalancerListener: elb.ApplicationListener
   public readonly loadbalancerTargetGroup: elb.NetworkTargetGroup
   public readonly taskDefinition: ecs.FargateTaskDefinition
   public readonly taskContainer: ecs.ContainerDefinition
@@ -55,26 +56,15 @@ export class Platform extends cdk.Stack {
       ]
     })
 
-    // NLB ...
-    this.loadbalancer = new elb.NetworkLoadBalancer(this, 'LoadBalancer', {
-      internetFacing: true,
-      vpc: this.vpc
+    const image = new assets.DockerImageAsset(this, 'MyBuildImage', {
+      directory: path.join(__dirname, '../../../')
     })
 
-    this.loadbalancerListener = this.loadbalancer.addListener(
-      'PublicListener',
-      { port: 80 }
-    )
-
-    this.loadbalancerTargetGroup = this.loadbalancerListener.addTargets('ECS', {
-      port: 9090
-    })
-
-    this.image = this.addDockerImageAsset({
-      directoryName: path.join(__dirname, '../../../'),
-      repositoryName: `${props.name}/proxy`,
-      sourceHash: 'proxy-beta_2'
-    })
+    // this.image = this.addDockerImageAsset({
+    //   directoryName: path.join(__dirname, '../../../'),
+    //   repositoryName: `${props.name}/proxy`,
+    //   sourceHash: 'proxy-beta_2'
+    // })
 
     this.taskExecutionRole = new iam.Role(this, 'TaskExecutionRole', {
       roleName: `${props.name}-proxy-execution`,
@@ -136,7 +126,7 @@ export class Platform extends cdk.Stack {
     })
     this.taskContainer = this.taskDefinition.addContainer('ProxyContainer', {
       essential: true,
-      image: ecs.ContainerImage.fromRegistry(this.image.imageUri),
+      image: ecs.ContainerImage.fromRegistry(image.imageUri),
       environment: {
         PORT: '9090'
       },
@@ -162,7 +152,7 @@ export class Platform extends cdk.Stack {
       securityGroup: this.taskSecurityGroup,
       vpcSubnets: { subnets: this.vpc.privateSubnets }
     })
-    this.loadbalancerTargetGroup.addTarget(this.service)
+    // this.loadbalancerTargetGroup.addTarget(this.service)
 
     // Setup AutoScaling policy ...
     const scaling = this.service.autoScaleTaskCount({ maxCapacity: 2 })
