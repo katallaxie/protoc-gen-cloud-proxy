@@ -32,7 +32,7 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			return err
 		}
 
-    ll := s.opts.Logger.With()
+    ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
     srv := &service{}
 
 		tlsConfig := &tls.Config{}

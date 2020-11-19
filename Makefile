@@ -23,4 +23,9 @@ lint:
 
 .PHONY: proto
 proto:
-	protoc --go_out=plugins=grpc:. --proto_path=. api/*.proto
+	protoc --go_out=plugins=grpc:./api --go_opt=paths=source_relative --proto_path=api api/*.proto
+
+.PHONY: example
+example:
+	go build -o bin/protoc-gen-aws-service-proxy main.go && protoc --go_out=plugins=grpc:. --go_opt=paths=source_relative --aws-service-proxy_out=. --plugin=bin/protoc-gen-aws-service-proxy -I ./ example/example.proto --proto_path=api
+

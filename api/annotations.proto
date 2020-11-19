@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package amazon.api;
 
-import "api/methods.proto";
-import "api/fields.proto";
+import "methods.proto";
+import "fields.proto";
 import "google/protobuf/descriptor.proto";
 
 option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;annotations";

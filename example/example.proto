@@ -4,7 +4,7 @@ syntax = "proto3";
 package proto;
 
 import "google/protobuf/timestamp.proto";
-import "api/annotations.proto";
+import "annotations.proto";
 
 // Example ...
 service Example {

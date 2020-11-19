@@ -11,16 +11,17 @@ import (
 	"net"
 	"time"
 
-	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
-	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
-
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/golang/protobuf/jsonpb"
+	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
+
+	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
 )
 
 // SongJSONMarshaler describes the default jsonpb.Marshaler used by all
@@ -416,7 +417,7 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			return err
 		}
 
-		ll := s.opts.Logger.With()
+		ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
 		srv := &service{}
 
 		tlsConfig := &tls.Config{}
