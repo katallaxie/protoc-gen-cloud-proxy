@@ -13,9 +13,8 @@ import (
 	"math"
 	"net"
 
-  "github.com/andersnormal/pkg/server"
+  "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
   o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
-	"github.com/spf13/viper"
 
 	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"

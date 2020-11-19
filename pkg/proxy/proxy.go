@@ -5,42 +5,36 @@ import (
 
 	"github.com/andersnormal/pkg/server"
 	"github.com/spf13/cobra"
+
+	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 )
 
 type proxy struct {
-	opts *Opts
-	cmd  *cobra.Command
+	opts     *o.Opts
+	cmd      *cobra.Command
+	listener Listener
 }
 
 // Proxy ...
 type Proxy interface {
 	// Start ...
-	Start(context.Context, Listener) error
+	Start(context.Context) error
 }
 
 // Listener
 type Listener server.Listener
 
-// Opts ...
-type Opts struct{}
-
-// Opt ...
-type Opt func(*Opts)
-
 // New ..
-func New(opts ...Opt) Proxy {
-	options := new(Opts)
-
+func New(l Listener, opts *o.Opts) Proxy {
 	p := new(proxy)
-	p.opts = options
-
-	configure(p, opts...)
+	p.opts = opts
+	p.listener = l
 
 	return p
 }
 
 // WithContext ...
-func (p *proxy) Start(ctx context.Context, l Listener) error {
+func (p *proxy) Start(ctx context.Context) error {
 	// create root context
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -48,15 +42,17 @@ func (p *proxy) Start(ctx context.Context, l Listener) error {
 	// create server
 	s, _ := server.WithContext(ctx)
 
-	// debug listener
-	debug := server.NewDebugListener(
-		server.WithPprof(),
-		server.WithStatusAddr(":8443"),
-	)
-	s.Listen(debug, true)
+	if p.opts.Debug {
+		// debug listener
+		debug := server.NewDebugListener(
+			server.WithPprof(),
+			server.WithStatusAddr(p.opts.StatusAddr),
+		)
+		s.Listen(debug, true)
+	}
 
 	// listen for grpc
-	s.Listen(l, true)
+	s.Listen(p.listener, true)
 
 	// listen for the server and wait for it to fail,
 	// or for sys interrupts
@@ -70,7 +66,7 @@ func (p *proxy) Start(ctx context.Context, l Listener) error {
 
 // +private
 
-func configure(p *proxy, opts ...Opt) error {
+func configure(p *proxy, opts ...o.Opt) error {
 	for _, o := range opts {
 		o(p.opts)
 	}

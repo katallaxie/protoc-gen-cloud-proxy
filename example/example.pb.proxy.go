@@ -11,9 +11,8 @@ import (
 	"net"
 	"time"
 
-	"github.com/andersnormal/pkg/server"
 	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
-	"github.com/spf13/viper"
+	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -396,19 +395,23 @@ type service struct {
 	UnimplementedExampleServer
 }
 
-func NewService(opts ...o.Opt) server.Listener {
-	options := o.New()
-
+func New(opts *o.Opts) proxy.Listener {
 	s := new(srv)
-	s.opts = options
-	s.opts.Configure(opts...)
+	s.opts = opts
 
 	return s
 }
 
+func NewProxy(opts *o.Opts) proxy.Proxy {
+	s := New(opts)
+	p := proxy.New(s, opts)
+
+	return p
+}
+
 func (s *srv) Start(ctx context.Context, ready func()) func() error {
 	return func() error {
-		lis, err := net.Listen("tcp", viper.GetString("addr"))
+		lis, err := net.Listen("tcp", s.opts.Addr)
 		if err != nil {
 			return err
 		}
