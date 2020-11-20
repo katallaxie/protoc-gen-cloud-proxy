@@ -4,8 +4,10 @@ go 1.14
 
 require (
 	github.com/andersnormal/pkg v0.0.0-20200822073041-145047024b6c
+	github.com/aws/aws-lambda-go v1.20.0
 	github.com/aws/aws-sdk-go v1.35.14
 	github.com/golang/protobuf v1.4.3
+	github.com/google/uuid v1.1.2
 	github.com/kr/pretty v0.2.1 // indirect
 	github.com/lyft/protoc-gen-star v0.5.2
 	github.com/spf13/cobra v1.1.1

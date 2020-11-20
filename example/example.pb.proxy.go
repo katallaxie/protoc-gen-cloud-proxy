@@ -456,7 +456,6 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 // Here goes a message Insert
 
 func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Response, error) {
-	// Encode the Message into JSON representation
 	b, err := req.MarshalJSON()
 	if err != nil {
 		return nil, err
@@ -464,7 +463,7 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 
 	svc := lambda.New(session.New())
 	input := &lambda.InvokeInput{
-		FunctionName: aws.String("arn:aws:lambda:us-east-2:123456789012:function:my-function"),
+		FunctionName: aws.String("arn:aws:lambda:eu-west-1:291339088935:function:Platform-testfunction5B23D3B0-4MTGLLV63WWF"),
 		Payload:      b,
 		Qualifier:    aws.String("$LATEST"),
 	}
@@ -479,7 +478,7 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 		return nil, err
 	}
 
-	return nil, nil
+	return &payload, nil
 
 }
 

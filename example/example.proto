@@ -11,7 +11,7 @@ service Example {
   // Insert ...
   rpc Insert(Insert.Request) returns (Insert.Response) {
     option (amazon.api.methods).lambda = {
-      function_name: "arn:aws:lambda:us-east-2:123456789012:function:my-function",
+      function_name: "arn:aws:lambda:eu-west-1:291339088935:function:Platform-testfunction5B23D3B0-4MTGLLV63WWF",
       qualifier: "$LATEST"
     };
   };

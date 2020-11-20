@@ -7,6 +7,7 @@ import * as assets from '@aws-cdk/aws-ecr-assets'
 import * as path from 'path'
 import * as logs from '@aws-cdk/aws-logs'
 import * as ecsPatterns from '@aws-cdk/aws-ecs-patterns'
+import * as golang from 'aws-lambda-golang'
 
 enum SubnetName {
   Public = 'Public',
@@ -32,6 +33,7 @@ export class Platform extends cdk.Stack {
   public readonly taskRole: iam.Role
   public readonly service: ecs.FargateService
   public readonly dockerImage: assets.DockerImageAsset
+  public readonly lambdaHandler: golang.GolangFunction
 
   constructor(scope: cdk.Construct, id: string, props: PlatformStackProps) {
     super(scope, id)
@@ -65,6 +67,8 @@ export class Platform extends cdk.Stack {
     //   repositoryName: `${props.name}/proxy`,
     //   sourceHash: 'proxy-beta_2'
     // })
+
+    this.lambdaHandler = new golang.GolangFunction(this, 'test-function')
 
     this.taskExecutionRole = new iam.Role(this, 'TaskExecutionRole', {
       roleName: `${props.name}-proxy-execution`,
