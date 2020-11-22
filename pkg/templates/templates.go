@@ -15,6 +15,7 @@ func makeTemplate(ext string, fn RegisterFn, params pgs.Parameters) *template.Te
 
 	template.Must(tpl.New("lambda").Parse(lambdaTpl))
 	template.Must(tpl.New("dynamodb").Parse(dynamoDBTpl))
+	template.Must(tpl.New("sqs").Parse(sqsTpl))
 
 	fn(tpl, params)
 	return tpl

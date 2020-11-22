@@ -54,5 +54,9 @@ func resolveMethods(m *api.Methods) string {
 		return "dynamodb"
 	}
 
+	if m.GetSqs() != nil {
+		return "sqs"
+	}
+
 	return "error"
 }

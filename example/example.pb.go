@@ -224,6 +224,45 @@ func (*ListSongs) Descriptor() ([]byte, []int) {
 	return file_example_example_proto_rawDescGZIP(), []int{3}
 }
 
+// ReceiveInserts ...
+type ReceiveInserts struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ReceiveInserts) Reset() {
+	*x = ReceiveInserts{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_example_example_proto_msgTypes[4]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReceiveInserts) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceiveInserts) ProtoMessage() {}
+
+func (x *ReceiveInserts) ProtoReflect() protoreflect.Message {
+	mi := &file_example_example_proto_msgTypes[4]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceiveInserts.ProtoReflect.Descriptor instead.
+func (*ReceiveInserts) Descriptor() ([]byte, []int) {
+	return file_example_example_proto_rawDescGZIP(), []int{4}
+}
+
 // Empty ...
 type Empty struct {
 	state         protoimpl.MessageState
@@ -234,7 +273,7 @@ type Empty struct {
 func (x *Empty) Reset() {
 	*x = Empty{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[4]
+		mi := &file_example_example_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -247,7 +286,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[4]
+	mi := &file_example_example_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -260,7 +299,7 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_example_example_proto_rawDescGZIP(), []int{4}
+	return file_example_example_proto_rawDescGZIP(), []int{5}
 }
 
 // Request ...
@@ -275,7 +314,7 @@ type Insert_Request struct {
 func (x *Insert_Request) Reset() {
 	*x = Insert_Request{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[5]
+		mi := &file_example_example_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -288,7 +327,7 @@ func (x *Insert_Request) String() string {
 func (*Insert_Request) ProtoMessage() {}
 
 func (x *Insert_Request) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[5]
+	mi := &file_example_example_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -323,7 +362,7 @@ type Insert_Response struct {
 func (x *Insert_Response) Reset() {
 	*x = Insert_Response{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[6]
+		mi := &file_example_example_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -336,7 +375,7 @@ func (x *Insert_Response) String() string {
 func (*Insert_Response) ProtoMessage() {}
 
 func (x *Insert_Response) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[6]
+	mi := &file_example_example_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +410,7 @@ type Update_Request struct {
 func (x *Update_Request) Reset() {
 	*x = Update_Request{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[7]
+		mi := &file_example_example_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -384,7 +423,7 @@ func (x *Update_Request) String() string {
 func (*Update_Request) ProtoMessage() {}
 
 func (x *Update_Request) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[7]
+	mi := &file_example_example_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -419,7 +458,7 @@ type Update_Response struct {
 func (x *Update_Response) Reset() {
 	*x = Update_Response{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[8]
+		mi := &file_example_example_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -432,7 +471,7 @@ func (x *Update_Response) String() string {
 func (*Update_Response) ProtoMessage() {}
 
 func (x *Update_Response) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[8]
+	mi := &file_example_example_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -465,7 +504,7 @@ type ListSongs_Request struct {
 func (x *ListSongs_Request) Reset() {
 	*x = ListSongs_Request{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[9]
+		mi := &file_example_example_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -478,7 +517,7 @@ func (x *ListSongs_Request) String() string {
 func (*ListSongs_Request) ProtoMessage() {}
 
 func (x *ListSongs_Request) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[9]
+	mi := &file_example_example_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -506,7 +545,7 @@ type ListSongs_Response struct {
 func (x *ListSongs_Response) Reset() {
 	*x = ListSongs_Response{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_example_example_proto_msgTypes[10]
+		mi := &file_example_example_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -519,7 +558,7 @@ func (x *ListSongs_Response) String() string {
 func (*ListSongs_Response) ProtoMessage() {}
 
 func (x *ListSongs_Response) ProtoReflect() protoreflect.Message {
-	mi := &file_example_example_proto_msgTypes[10]
+	mi := &file_example_example_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -538,6 +577,93 @@ func (*ListSongs_Response) Descriptor() ([]byte, []int) {
 func (x *ListSongs_Response) GetSongs() []*Song {
 	if x != nil {
 		return x.Songs
+	}
+	return nil
+}
+
+// Request ...
+type ReceiveInserts_Request struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *ReceiveInserts_Request) Reset() {
+	*x = ReceiveInserts_Request{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_example_example_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReceiveInserts_Request) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceiveInserts_Request) ProtoMessage() {}
+
+func (x *ReceiveInserts_Request) ProtoReflect() protoreflect.Message {
+	mi := &file_example_example_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceiveInserts_Request.ProtoReflect.Descriptor instead.
+func (*ReceiveInserts_Request) Descriptor() ([]byte, []int) {
+	return file_example_example_proto_rawDescGZIP(), []int{4, 0}
+}
+
+// Response ...
+type ReceiveInserts_Response struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Song *Song `protobuf:"bytes,1,opt,name=Song,proto3" json:"Song,omitempty"`
+}
+
+func (x *ReceiveInserts_Response) Reset() {
+	*x = ReceiveInserts_Response{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_example_example_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReceiveInserts_Response) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReceiveInserts_Response) ProtoMessage() {}
+
+func (x *ReceiveInserts_Response) ProtoReflect() protoreflect.Message {
+	mi := &file_example_example_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReceiveInserts_Response.ProtoReflect.Descriptor instead.
+func (*ReceiveInserts_Response) Descriptor() ([]byte, []int) {
+	return file_example_example_proto_rawDescGZIP(), []int{4, 1}
+}
+
+func (x *ReceiveInserts_Response) GetSong() *Song {
+	if x != nil {
+		return x.Song
 	}
 	return nil
 }
@@ -576,28 +702,36 @@ var file_example_example_proto_rawDesc = []byte{
 	0x09, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2d, 0x0a, 0x08, 0x52, 0x65,
 	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x21, 0x0a, 0x05, 0x73, 0x6f, 0x6e, 0x67, 0x73, 0x18,
 	0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f,
-	0x6e, 0x67, 0x52, 0x05, 0x73, 0x6f, 0x6e, 0x67, 0x73, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70,
-	0x74, 0x79, 0x32, 0xbb, 0x02, 0x0a, 0x07, 0x45, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x12, 0xa4,
-	0x01, 0x0a, 0x06, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x2e,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x6b, 0xf2, 0x94, 0x8c, 0x2f, 0x66, 0x12,
-	0x64, 0x0a, 0x59, 0x61, 0x72, 0x6e, 0x3a, 0x61, 0x77, 0x73, 0x3a, 0x6c, 0x61, 0x6d, 0x62, 0x64,
-	0x61, 0x3a, 0x65, 0x75, 0x2d, 0x77, 0x65, 0x73, 0x74, 0x2d, 0x31, 0x3a, 0x32, 0x39, 0x31, 0x33,
-	0x33, 0x39, 0x30, 0x38, 0x38, 0x39, 0x33, 0x35, 0x3a, 0x66, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f,
-	0x6e, 0x3a, 0x50, 0x6c, 0x61, 0x74, 0x66, 0x6f, 0x72, 0x6d, 0x2d, 0x74, 0x65, 0x73, 0x74, 0x66,
-	0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x35, 0x42, 0x32, 0x33, 0x44, 0x33, 0x42, 0x30, 0x2d,
-	0x34, 0x4d, 0x54, 0x47, 0x4c, 0x4c, 0x56, 0x36, 0x33, 0x57, 0x57, 0x46, 0x12, 0x07, 0x24, 0x4c,
-	0x41, 0x54, 0x45, 0x53, 0x54, 0x12, 0x88, 0x01, 0x0a, 0x06, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x2e,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
-	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22,
-	0x4f, 0xf2, 0x94, 0x8c, 0x2f, 0x4a, 0x1a, 0x48, 0x62, 0x46, 0x0a, 0x05, 0x4d, 0x75, 0x73, 0x69,
-	0x63, 0x12, 0x07, 0x41, 0x4c, 0x4c, 0x5f, 0x4e, 0x45, 0x57, 0x3a, 0x11, 0x0a, 0x03, 0x23, 0x41,
-	0x54, 0x12, 0x0a, 0x41, 0x6c, 0x62, 0x75, 0x6d, 0x54, 0x69, 0x74, 0x6c, 0x65, 0x3a, 0x0a, 0x0a,
-	0x02, 0x23, 0x59, 0x12, 0x04, 0x59, 0x65, 0x61, 0x72, 0x4a, 0x15, 0x53, 0x45, 0x54, 0x20, 0x23,
-	0x59, 0x20, 0x3d, 0x20, 0x3a, 0x79, 0x2c, 0x20, 0x23, 0x41, 0x54, 0x20, 0x3d, 0x20, 0x3a, 0x74,
-	0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x6e, 0x67, 0x52, 0x05, 0x73, 0x6f, 0x6e, 0x67, 0x73, 0x22, 0x48, 0x0a, 0x0e, 0x52, 0x65, 0x63,
+	0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x73, 0x1a, 0x09, 0x0a, 0x07, 0x52,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x2b, 0x0a, 0x08, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x12, 0x1f, 0x0a, 0x04, 0x53, 0x6f, 0x6e, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x0b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x6e, 0x67, 0x52, 0x04, 0x53,
+	0x6f, 0x6e, 0x67, 0x22, 0x07, 0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xf2, 0x02, 0x0a,
+	0x07, 0x45, 0x78, 0x61, 0x6d, 0x70, 0x6c, 0x65, 0x12, 0x81, 0x01, 0x0a, 0x06, 0x49, 0x6e, 0x73,
+	0x65, 0x72, 0x74, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x49, 0x6e, 0x73, 0x65,
+	0x72, 0x74, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x2e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
+	0x73, 0x65, 0x22, 0x48, 0xf2, 0x94, 0x8c, 0x2f, 0x43, 0x12, 0x41, 0x0a, 0x36, 0x61, 0x72, 0x6e,
+	0x3a, 0x61, 0x77, 0x73, 0x3a, 0x6c, 0x61, 0x6d, 0x62, 0x64, 0x61, 0x3a, 0x65, 0x75, 0x2d, 0x77,
+	0x65, 0x73, 0x74, 0x2d, 0x31, 0x3a, 0x32, 0x39, 0x31, 0x33, 0x33, 0x39, 0x30, 0x38, 0x38, 0x39,
+	0x33, 0x35, 0x3a, 0x66, 0x75, 0x6e, 0x63, 0x74, 0x69, 0x6f, 0x6e, 0x3a, 0x6d, 0x79, 0x2d, 0x74,
+	0x65, 0x73, 0x74, 0x12, 0x07, 0x24, 0x4c, 0x41, 0x54, 0x45, 0x53, 0x54, 0x12, 0x88, 0x01, 0x0a,
+	0x06, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x2e, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x4f, 0xf2, 0x94, 0x8c, 0x2f, 0x4a, 0x1a, 0x48, 0x62,
+	0x46, 0x0a, 0x05, 0x4d, 0x75, 0x73, 0x69, 0x63, 0x12, 0x07, 0x41, 0x4c, 0x4c, 0x5f, 0x4e, 0x45,
+	0x57, 0x3a, 0x11, 0x0a, 0x03, 0x23, 0x41, 0x54, 0x12, 0x0a, 0x41, 0x6c, 0x62, 0x75, 0x6d, 0x54,
+	0x69, 0x74, 0x6c, 0x65, 0x3a, 0x0a, 0x0a, 0x02, 0x23, 0x59, 0x12, 0x04, 0x59, 0x65, 0x61, 0x72,
+	0x4a, 0x15, 0x53, 0x45, 0x54, 0x20, 0x23, 0x59, 0x20, 0x3d, 0x20, 0x3a, 0x79, 0x2c, 0x20, 0x23,
+	0x41, 0x54, 0x20, 0x3d, 0x20, 0x3a, 0x74, 0x12, 0x58, 0x0a, 0x0e, 0x52, 0x65, 0x63, 0x65, 0x69,
+	0x76, 0x65, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x73, 0x12, 0x1d, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x73,
+	0x2e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x73, 0x2e,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x07, 0xf2, 0x94, 0x8c, 0x2f, 0x02, 0x22,
+	0x00, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -612,33 +746,39 @@ func file_example_example_proto_rawDescGZIP() []byte {
 	return file_example_example_proto_rawDescData
 }
 
-var file_example_example_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_example_example_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_example_example_proto_goTypes = []interface{}{
-	(*Song)(nil),               // 0: proto.Song
-	(*Insert)(nil),             // 1: proto.Insert
-	(*Update)(nil),             // 2: proto.Update
-	(*ListSongs)(nil),          // 3: proto.ListSongs
-	(*Empty)(nil),              // 4: proto.Empty
-	(*Insert_Request)(nil),     // 5: proto.Insert.Request
-	(*Insert_Response)(nil),    // 6: proto.Insert.Response
-	(*Update_Request)(nil),     // 7: proto.Update.Request
-	(*Update_Response)(nil),    // 8: proto.Update.Response
-	(*ListSongs_Request)(nil),  // 9: proto.ListSongs.Request
-	(*ListSongs_Response)(nil), // 10: proto.ListSongs.Response
+	(*Song)(nil),                    // 0: proto.Song
+	(*Insert)(nil),                  // 1: proto.Insert
+	(*Update)(nil),                  // 2: proto.Update
+	(*ListSongs)(nil),               // 3: proto.ListSongs
+	(*ReceiveInserts)(nil),          // 4: proto.ReceiveInserts
+	(*Empty)(nil),                   // 5: proto.Empty
+	(*Insert_Request)(nil),          // 6: proto.Insert.Request
+	(*Insert_Response)(nil),         // 7: proto.Insert.Response
+	(*Update_Request)(nil),          // 8: proto.Update.Request
+	(*Update_Response)(nil),         // 9: proto.Update.Response
+	(*ListSongs_Request)(nil),       // 10: proto.ListSongs.Request
+	(*ListSongs_Response)(nil),      // 11: proto.ListSongs.Response
+	(*ReceiveInserts_Request)(nil),  // 12: proto.ReceiveInserts.Request
+	(*ReceiveInserts_Response)(nil), // 13: proto.ReceiveInserts.Response
 }
 var file_example_example_proto_depIdxs = []int32{
-	0, // 0: proto.Insert.Request.Song:type_name -> proto.Song
-	0, // 1: proto.Update.Request.song:type_name -> proto.Song
-	0, // 2: proto.ListSongs.Response.songs:type_name -> proto.Song
-	5, // 3: proto.Example.Insert:input_type -> proto.Insert.Request
-	7, // 4: proto.Example.Update:input_type -> proto.Update.Request
-	6, // 5: proto.Example.Insert:output_type -> proto.Insert.Response
-	8, // 6: proto.Example.Update:output_type -> proto.Update.Response
-	5, // [5:7] is the sub-list for method output_type
-	3, // [3:5] is the sub-list for method input_type
-	3, // [3:3] is the sub-list for extension type_name
-	3, // [3:3] is the sub-list for extension extendee
-	0, // [0:3] is the sub-list for field type_name
+	0,  // 0: proto.Insert.Request.Song:type_name -> proto.Song
+	0,  // 1: proto.Update.Request.song:type_name -> proto.Song
+	0,  // 2: proto.ListSongs.Response.songs:type_name -> proto.Song
+	0,  // 3: proto.ReceiveInserts.Response.Song:type_name -> proto.Song
+	6,  // 4: proto.Example.Insert:input_type -> proto.Insert.Request
+	8,  // 5: proto.Example.Update:input_type -> proto.Update.Request
+	12, // 6: proto.Example.ReceiveInserts:input_type -> proto.ReceiveInserts.Request
+	7,  // 7: proto.Example.Insert:output_type -> proto.Insert.Response
+	9,  // 8: proto.Example.Update:output_type -> proto.Update.Response
+	13, // 9: proto.Example.ReceiveInserts:output_type -> proto.ReceiveInserts.Response
+	7,  // [7:10] is the sub-list for method output_type
+	4,  // [4:7] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_example_example_proto_init() }
@@ -696,7 +836,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Empty); i {
+			switch v := v.(*ReceiveInserts); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -708,7 +848,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Insert_Request); i {
+			switch v := v.(*Empty); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -720,7 +860,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Insert_Response); i {
+			switch v := v.(*Insert_Request); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -732,7 +872,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Update_Request); i {
+			switch v := v.(*Insert_Response); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -744,7 +884,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Update_Response); i {
+			switch v := v.(*Update_Request); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -756,7 +896,7 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*ListSongs_Request); i {
+			switch v := v.(*Update_Response); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -768,7 +908,43 @@ func file_example_example_proto_init() {
 			}
 		}
 		file_example_example_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ListSongs_Request); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_example_example_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListSongs_Response); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_example_example_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReceiveInserts_Request); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_example_example_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReceiveInserts_Response); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -786,7 +962,7 @@ func file_example_example_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_example_example_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
@@ -816,6 +992,8 @@ type ExampleClient interface {
 	Insert(ctx context.Context, in *Insert_Request, opts ...grpc.CallOption) (*Insert_Response, error)
 	// Update ...
 	Update(ctx context.Context, in *Update_Request, opts ...grpc.CallOption) (*Update_Response, error)
+	// ReceiveInserts ...
+	ReceiveInserts(ctx context.Context, in *ReceiveInserts_Request, opts ...grpc.CallOption) (*ReceiveInserts_Response, error)
 }
 
 type exampleClient struct {
@@ -844,12 +1022,23 @@ func (c *exampleClient) Update(ctx context.Context, in *Update_Request, opts ...
 	return out, nil
 }
 
+func (c *exampleClient) ReceiveInserts(ctx context.Context, in *ReceiveInserts_Request, opts ...grpc.CallOption) (*ReceiveInserts_Response, error) {
+	out := new(ReceiveInserts_Response)
+	err := c.cc.Invoke(ctx, "/proto.Example/ReceiveInserts", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ExampleServer is the server API for Example service.
 type ExampleServer interface {
 	// Insert ...
 	Insert(context.Context, *Insert_Request) (*Insert_Response, error)
 	// Update ...
 	Update(context.Context, *Update_Request) (*Update_Response, error)
+	// ReceiveInserts ...
+	ReceiveInserts(context.Context, *ReceiveInserts_Request) (*ReceiveInserts_Response, error)
 }
 
 // UnimplementedExampleServer can be embedded to have forward compatible implementations.
@@ -861,6 +1050,9 @@ func (*UnimplementedExampleServer) Insert(context.Context, *Insert_Request) (*In
 }
 func (*UnimplementedExampleServer) Update(context.Context, *Update_Request) (*Update_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
+}
+func (*UnimplementedExampleServer) ReceiveInserts(context.Context, *ReceiveInserts_Request) (*ReceiveInserts_Response, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReceiveInserts not implemented")
 }
 
 func RegisterExampleServer(s *grpc.Server, srv ExampleServer) {
@@ -903,6 +1095,24 @@ func _Example_Update_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Example_ReceiveInserts_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReceiveInserts_Request)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ExampleServer).ReceiveInserts(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/proto.Example/ReceiveInserts",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ExampleServer).ReceiveInserts(ctx, req.(*ReceiveInserts_Request))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Example_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "proto.Example",
 	HandlerType: (*ExampleServer)(nil),
@@ -914,6 +1124,10 @@ var _Example_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Update",
 			Handler:    _Example_Update_Handler,
+		},
+		{
+			MethodName: "ReceiveInserts",
+			Handler:    _Example_ReceiveInserts_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

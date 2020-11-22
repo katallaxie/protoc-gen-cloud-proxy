@@ -28,6 +28,13 @@ service Example {
       UpdateExpression: "SET #Y = :y, #AT = :t"
     };
   };
+
+  // ReceiveInserts ...
+  rpc ReceiveInserts(ReceiveInserts.Request) returns (ReceiveInserts.Response) {
+    option (amazon.api.methods).sqs = {
+      queue_url: ""
+    };
+  }
 }
 
 // Song ...
@@ -74,6 +81,17 @@ message ListSongs {
   // Response ...
   message Response {
     repeated Song songs = 1;
+  }
+}
+
+// ReceiveInserts ...
+message ReceiveInserts {
+  // Request ...
+  message Request {
+  }
+  // Response ...
+  message Response {
+    Song Song = 1;
   }
 }
 

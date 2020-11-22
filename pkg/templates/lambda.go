@@ -5,7 +5,12 @@ if err != nil {
 	return nil, err
 }
 
-svc := lambda.New(session.New())
+session, err := s.getSession()
+if err != nil {
+	return nil, err
+}
+
+svc := lambda.New(session)
 input := &lambda.InvokeInput{
 	FunctionName: aws.String("{{ .Methods.GetLambda.FunctionName }}"),
   Payload:      b,

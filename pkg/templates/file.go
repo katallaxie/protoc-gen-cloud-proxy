@@ -21,6 +21,7 @@ import (
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
   "github.com/aws/aws-sdk-go/aws"
   "github.com/aws/aws-sdk-go/service/dynamodb"
+  status "google.golang.org/grpc/status"
   "go.uber.org/zap"
   grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 

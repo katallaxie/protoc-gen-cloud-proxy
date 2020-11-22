@@ -1,6 +1,7 @@
 package opts
 
 import (
+	"github.com/aws/aws-sdk-go/aws/session"
 	"go.uber.org/zap"
 )
 
@@ -35,6 +36,8 @@ type Opts struct {
 	LogLevel string
 	// Logger ...
 	Logger *zap.Logger
+	// Session ...
+	Session *session.Session
 }
 
 // Opt ...
@@ -106,5 +109,12 @@ func WithAddr(addr string) Opt {
 func WithStatusAddr(addr string) Opt {
 	return func(opts *Opts) {
 		opts.StatusAddr = addr
+	}
+}
+
+// WithSession ...
+func WithSession(session *session.Session) {
+	return func(opts *Opts) {
+		opts.Session = session
 	}
 }

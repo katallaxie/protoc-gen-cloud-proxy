@@ -7,7 +7,8 @@ type srv struct {
 }
 
 type service struct {
-	tlsCfg *tls.Config
+  tlsCfg *tls.Config
+  session *session.Session
 	UnimplementedExampleServer
 }
 
