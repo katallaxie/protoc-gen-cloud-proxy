@@ -18,9 +18,11 @@ import (
 	"github.com/golang/protobuf/jsonpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
+	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
   "github.com/aws/aws-sdk-go/aws"
   "github.com/aws/aws-sdk-go/service/dynamodb"
   "go.uber.org/zap"
+  grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 
   "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
   o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"

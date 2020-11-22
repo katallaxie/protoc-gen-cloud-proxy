@@ -8,6 +8,7 @@ require (
 	github.com/aws/aws-sdk-go v1.35.14
 	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.2
+	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
 	github.com/kr/pretty v0.2.1 // indirect
 	github.com/lyft/protoc-gen-star v0.5.2
 	github.com/spf13/cobra v1.1.1

@@ -16,8 +16,12 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/golang/protobuf/jsonpb"
+	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/keepalive"
 
 	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
@@ -437,9 +441,16 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			Timeout:               1 * time.Second,              // Wait 1 second for the ping ack before assuming the connection is dead
 		}
 
-		ss := grpc.NewServer(grpc.KeepaliveEnforcementPolicy(kaep), grpc.KeepaliveParams(kasp))
+		grpc_zap.ReplaceGrpcLogger(ll)
+
+		ss := grpc.NewServer(
+			grpc.KeepaliveEnforcementPolicy(kaep),
+			grpc.KeepaliveParams(kasp),
+			grpc_middleware.WithUnaryServerChain(grpc_zap.UnaryServerInterceptor(ll)))
+
 		RegisterExampleServer(ss, srv)
-		// health.RegisterHealthServer(ss, srv)
+		grpc_health_v1.RegisterHealthServer(ss, health.NewServer())
+		// grpc_health_v1.RegisterHealthServer(ss, srv)
 
 		ready()
 
@@ -463,7 +474,7 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 
 	svc := lambda.New(session.New())
 	input := &lambda.InvokeInput{
-		FunctionName: aws.String("arn:aws:lambda:eu-west-1:291339088935:function:Platform-testfunction5B23D3B0-4MTGLLV63WWF"),
+		FunctionName: aws.String("arn:aws:lambda:eu-west-1:291339088935:function:my-test"),
 		Payload:      b,
 		Qualifier:    aws.String("$LATEST"),
 	}
@@ -479,7 +490,6 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 	}
 
 	return &payload, nil
-
 }
 
 // Here goes a message Update
@@ -501,5 +511,4 @@ func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Resp
 
 	// DynamoDB
 	return nil, nil
-
 }

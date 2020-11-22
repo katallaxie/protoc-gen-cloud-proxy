@@ -32,8 +32,8 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			return err
 		}
 
-    ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
-    srv := &service{}
+		ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
+		srv := &service{}
 
 		tlsConfig := &tls.Config{}
 		tlsConfig.InsecureSkipVerify = true
@@ -52,13 +52,20 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 			Timeout:               1 * time.Second,              // Wait 1 second for the ping ack before assuming the connection is dead
 		}
 
-		ss := grpc.NewServer(grpc.KeepaliveEnforcementPolicy(kaep), grpc.KeepaliveParams(kasp))
-		Register{{ name . }}(ss, srv)
-		// health.RegisterHealthServer(ss, srv)
+		grpc_zap.ReplaceGrpcLogger(ll)
 
-    ready()
+		ss := grpc.NewServer(
+			grpc.KeepaliveEnforcementPolicy(kaep),
+			grpc.KeepaliveParams(kasp),
+			grpc_middleware.WithUnaryServerChain(grpc_zap.UnaryServerInterceptor(ll)))
 
-    ll.Info("start listening")
+		RegisterExampleServer(ss, srv)
+		grpc_health_v1.RegisterHealthServer(ss, health.NewServer())
+		// grpc_health_v1.RegisterHealthServer(ss, srv)
+
+		ready()
+
+		ll.Info("start listening")
 
 		if err := ss.Serve(lis); err != nil {
 			return err
