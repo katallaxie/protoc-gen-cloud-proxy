@@ -1,7 +1,7 @@
 package templates
 
 const sqsTpl = `
-{{ if .Method.ServerStreaming }}
+{{ if and (eq .Method.Input.Name "Empty") (.Method.ServerStreaming) }}
 svc := sqs.New(s.session)
 input := &sqs.ReceiveMessageInput{
   QueueUrl: aws.String(""),
@@ -14,7 +14,7 @@ if err != nil {
 
 for _, msg := range output.Messages {
   var payload {{ .Method.Output.Name }}
-  if err := payload.UnmarshalJSON([]byte(*msg.Body)); err != nil {
+  if err := proto.Unmarshal([]byte(*msg.Body), &payload); err != nil {
     return err
   }
 

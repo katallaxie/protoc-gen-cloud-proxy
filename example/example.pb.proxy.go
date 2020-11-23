@@ -17,6 +17,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/golang/protobuf/jsonpb"
+	"github.com/golang/protobuf/proto"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"go.uber.org/zap"
@@ -584,7 +585,7 @@ func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Resp
 }
 
 // Here goes a message ReceiveInserts
-func (s *service) ReceiveInserts(req *ReceiveInserts_Request, stream Example_ReceiveInsertsServer) error {
+func (s *service) ReceiveInserts(req *Empty, stream Example_ReceiveInsertsServer) error {
 
 	svc := sqs.New(s.session)
 	input := &sqs.ReceiveMessageInput{
@@ -598,7 +599,7 @@ func (s *service) ReceiveInserts(req *ReceiveInserts_Request, stream Example_Rec
 
 	for _, msg := range output.Messages {
 		var payload Song
-		if err := payload.UnmarshalJSON([]byte(*msg.Body)); err != nil {
+		if err := proto.Unmarshal([]byte(*msg.Body), &payload); err != nil {
 			return err
 		}
 

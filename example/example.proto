@@ -5,6 +5,7 @@ package proto;
 
 import "google/protobuf/timestamp.proto";
 import "annotations.proto";
+import "empty.proto";
 
 // Example ...
 service Example {
@@ -30,7 +31,7 @@ service Example {
   };
 
   // ReceiveInserts ...
-  rpc ReceiveInserts(ReceiveInserts.Request) returns (stream Song) {
+  rpc ReceiveInserts(Empty) returns (stream Song) {
     option (amazon.api.methods).sqs = {
       queue_url: ""
     };
