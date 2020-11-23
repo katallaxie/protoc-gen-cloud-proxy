@@ -113,7 +113,7 @@ func WithStatusAddr(addr string) Opt {
 }
 
 // WithSession ...
-func WithSession(session *session.Session) {
+func WithSession(session *session.Session) Opt {
 	return func(opts *Opts) {
 		opts.Session = session
 	}

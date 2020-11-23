@@ -30,7 +30,7 @@ service Example {
   };
 
   // ReceiveInserts ...
-  rpc ReceiveInserts(ReceiveInserts.Request) returns (ReceiveInserts.Response) {
+  rpc ReceiveInserts(ReceiveInserts.Request) returns (stream Song) {
     option (amazon.api.methods).sqs = {
       queue_url: ""
     };
@@ -88,10 +88,6 @@ message ListSongs {
 message ReceiveInserts {
   // Request ...
   message Request {
-  }
-  // Response ...
-  message Response {
-    Song Song = 1;
   }
 }
 

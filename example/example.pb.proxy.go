@@ -15,13 +15,15 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/lambda"
+	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/golang/protobuf/jsonpb"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/health"
+	grpc_health_v1 "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/keepalive"
-	status "google.golang.org/grpc/status"
 
 	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
@@ -423,39 +425,6 @@ func (m *ReceiveInserts_Request) UnmarshalJSON(b []byte) error {
 
 var _ json.Unmarshaler = (*ReceiveInserts_Request)(nil)
 
-// ReceiveInserts_ResponseJSONMarshaler describes the default jsonpb.Marshaler used by all
-// instances of ReceiveInserts_ResponseJSONMarshaler This struct is safe to replace or modify but
-// should not be done so concurrently.
-var ReceiveInserts_ResponseJSONMarshaler = new(jsonpb.Marshaler)
-
-// MarshalJSON satisfies the encoding/json Marshaler interface. This method
-// uses the more correct jsonpb package to correctly marshal the message.
-func (m *ReceiveInserts_Response) MarshalJSON() ([]byte, error) {
-	if m == nil {
-		return json.Marshal(nil)
-	}
-	buf := &bytes.Buffer{}
-	if err := ReceiveInserts_ResponseJSONMarshaler.Marshal(buf, m); err != nil {
-		return nil, err
-	}
-	return buf.Bytes(), nil
-}
-
-var _ json.Marshaler = (*ReceiveInserts_Response)(nil)
-
-// ReceiveInserts_ResponseJSONUnmarshaler describes the default jsonpb.Unmarshaler used by all
-// instances of ReceiveInserts_Response. This struct is safe to replace or modify but
-// should not be done so concurrently.
-var ReceiveInserts_ResponseJSONUnmarshaler = new(jsonpb.Unmarshaler)
-
-// UnmarshalJSON satisfies the encoding/json Unmarshaler interface. This method
-// uses the more correct jsonpb package to correctly unmarshal the message.
-func (m *ReceiveInserts_Response) UnmarshalJSON(b []byte) error {
-	return ReceiveInserts_ResponseJSONUnmarshaler.Unmarshal(bytes.NewReader(b), m)
-}
-
-var _ json.Unmarshaler = (*ReceiveInserts_Response)(nil)
-
 // EmptyJSONMarshaler describes the default jsonpb.Marshaler used by all
 // instances of EmptyJSONMarshaler This struct is safe to replace or modify but
 // should not be done so concurrently.
@@ -571,12 +540,7 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 		return nil, err
 	}
 
-	session, err := s.getSession()
-	if err != nil {
-		return nil, err
-	}
-
-	svc := lambda.New(session)
+	svc := lambda.New(s.session)
 	input := &lambda.InvokeInput{
 		FunctionName: aws.String("arn:aws:lambda:eu-west-1:291339088935:function:my-test"),
 		Payload:      b,
@@ -620,7 +584,27 @@ func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Resp
 }
 
 // Here goes a message ReceiveInserts
+func (s *service) ReceiveInserts(req *ReceiveInserts_Request, stream Example_ReceiveInsertsServer) error {
 
-func (s *service) ReceiveInserts(ctx context.Context, req *ReceiveInserts_Request) (*ReceiveInserts_Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ReceiveInserts not implemented")
+	svc := sqs.New(s.session)
+	input := &sqs.ReceiveMessageInput{
+		QueueUrl: aws.String(""),
+	}
+
+	output, err := svc.ReceiveMessageWithContext(stream.Context(), input)
+	if err != nil {
+		return err
+	}
+
+	for _, msg := range output.Messages {
+		var payload Song
+		if err := payload.UnmarshalJSON([]byte(*msg.Body)); err != nil {
+			return err
+		}
+
+		stream.Send(&payload)
+	}
+
+	return nil
+
 }
