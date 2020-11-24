@@ -26,6 +26,7 @@ import (
 	grpc_health_v1 "google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/keepalive"
 
+	api "github.com/katallaxie/protoc-gen-cloud-proxy/api"
 	o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 	"github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
 )
@@ -534,7 +535,6 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 }
 
 // Here goes a message Insert
-
 func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Response, error) {
 	b, err := req.MarshalJSON()
 	if err != nil {
@@ -563,7 +563,6 @@ func (s *service) Insert(ctx context.Context, req *Insert_Request) (*Insert_Resp
 }
 
 // Here goes a message Update
-
 func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Response, error) {
 
 	svc := dynamodb.New(session.New())
@@ -585,11 +584,12 @@ func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Resp
 }
 
 // Here goes a message ReceiveInserts
-func (s *service) ReceiveInserts(req *Empty, stream Example_ReceiveInsertsServer) error {
+func (s *service) ReceiveInserts(req *api.Sqs_Input, stream Example_ReceiveInsertsServer) error {
 
 	svc := sqs.New(s.session)
 	input := &sqs.ReceiveMessageInput{
-		QueueUrl: aws.String(""),
+		QueueUrl:              aws.String(""),
+		MessageAttributeNames: aws.StringSlice(req.MessageAttributeNames),
 	}
 
 	output, err := svc.ReceiveMessageWithContext(stream.Context(), input)
@@ -607,5 +607,44 @@ func (s *service) ReceiveInserts(req *Empty, stream Example_ReceiveInsertsServer
 	}
 
 	return nil
+
+}
+
+// Here goes a message SendInserts
+func (s *service) SendInserts(stream Example_SendInsertsServer) error {
+
+	svc := sqs.New(s.session)
+
+	for {
+		msg, err := stream.Recv()
+		if err != nil {
+			return err
+		}
+
+		bb, err := msg.MarshalJSON()
+		if err != nil {
+			return err
+		}
+
+		input := &sqs.SendMessageInput{
+			QueueUrl:    aws.String(""),
+			MessageBody: aws.String(string(bb)),
+		}
+
+		result, err := svc.SendMessage(input)
+		if err != nil {
+			return err
+		}
+
+		output := &api.Sqs_Output{
+			MD5OfMessageAttributes:       aws.StringValue(result.MD5OfMessageAttributes),
+			MD5OfMessageBody:             aws.StringValue(result.MD5OfMessageBody),
+			MD5OfMessageSystemAttributes: aws.StringValue(result.MD5OfMessageSystemAttributes),
+		}
+
+		if err := stream.SendMsg(output); err != nil {
+			return err
+		}
+	}
 
 }

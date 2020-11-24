@@ -15,7 +15,8 @@ func makeTemplate(ext string, fn RegisterFn, params pgs.Parameters) *template.Te
 
 	template.Must(tpl.New("lambda").Parse(lambdaTpl))
 	template.Must(tpl.New("dynamodb").Parse(dynamoDBTpl))
-	template.Must(tpl.New("sqs").Parse(sqsTpl))
+	template.Must(tpl.New("sqs_client_streaming").Parse(sqsClientStreamingTpl))
+	template.Must(tpl.New("sqs_server_streaming").Parse(sqsServerStreamingTpl))
 
 	fn(tpl, params)
 	return tpl
@@ -39,6 +40,11 @@ func Method(params pgs.Parameters) (*template.Template, error) {
 func MethodServerStreaming(params pgs.Parameters) (*template.Template, error) {
 	tpl := makeTemplate("method", func(tpl *template.Template, params pgs.Parameters) {}, params)
 	return tpl.Parse(methodServerStreamingTpl)
+}
+
+func MethodClientStreaming(params pgs.Parameters) (*template.Template, error) {
+	tpl := makeTemplate("method", func(tpl *template.Template, params pgs.Parameters) {}, params)
+	return tpl.Parse(methodClientStreamingTpl)
 }
 
 func Message(params pgs.Parameters) (*template.Template, error) {

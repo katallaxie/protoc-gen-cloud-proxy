@@ -29,6 +29,7 @@ import (
   "go.uber.org/zap"
 
   "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/proxy"
+  api "github.com/katallaxie/protoc-gen-cloud-proxy/api"
   o "github.com/katallaxie/protoc-gen-cloud-proxy/pkg/opts"
 )
 `

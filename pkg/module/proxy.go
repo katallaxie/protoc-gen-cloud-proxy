@@ -107,6 +107,10 @@ func (p ProxyVisitor) VisitMethod(m pgs.Method) (pgs.Visitor, error) {
 		return p.visitMethodServerSideStreaming(m)
 	}
 
+	if m.ClientStreaming() {
+		return p.visitMethodClientSideStreaming(m)
+	}
+
 	return p.visitMethod(m)
 }
 
@@ -126,6 +130,20 @@ func (p ProxyVisitor) visitMethod(m pgs.Method) (pgs.Visitor, error) {
 
 func (p ProxyVisitor) visitMethodServerSideStreaming(m pgs.Method) (pgs.Visitor, error) {
 	tpl, err := templates.MethodServerStreaming(p.Parameters)
+	if err != nil {
+		return nil, err
+	}
+
+	err = tpl.Execute(p.w, m)
+	if err != nil {
+		return nil, err
+	}
+
+	return p, err
+}
+
+func (p ProxyVisitor) visitMethodClientSideStreaming(m pgs.Method) (pgs.Visitor, error) {
+	tpl, err := templates.MethodClientStreaming(p.Parameters)
 	if err != nil {
 		return nil, err
 	}

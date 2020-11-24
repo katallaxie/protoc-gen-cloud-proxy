@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package amazon.api;
+option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;annotations";
+
+// SQS message ...
+message Sqs {
+  // Input message ...
+  message Input {
+    repeated string MessageAttributeNames = 1;
+    string QueueUrl = 2;
+    string ReceiveRequestAttemptId = 3;
+    int64 VisibilityTimeout = 4;
+    int64 WaitTimeSeconds = 5;
+  }
+  // Output message ..
+  message Output {
+    string MD5OfMessageAttributes = 1;
+    string MD5OfMessageBody = 2;
+    string MD5OfMessageSystemAttributes = 3;
+    string MessageId = 4;
+    string SequenceNumber = 5;
+  }
+}

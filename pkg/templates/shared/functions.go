@@ -35,7 +35,7 @@ func proxyContext(m pgs.Method) (ProxyContext, error) {
 		return ctx, err
 	}
 
-	ctx.Typ = resolveMethods(&services)
+	ctx.Typ = resolveMethods(&services, m)
 	ctx.Methods = &services
 
 	if ctx.Typ == "error" {
@@ -45,17 +45,21 @@ func proxyContext(m pgs.Method) (ProxyContext, error) {
 	return ctx, nil
 }
 
-func resolveMethods(m *api.Methods) string {
-	if m.GetLambda() != nil {
+func resolveMethods(a *api.Methods, m pgs.Method) string {
+	if a.GetLambda() != nil {
 		return "lambda"
 	}
 
-	if m.GetDynamodb() != nil {
+	if a.GetDynamodb() != nil {
 		return "dynamodb"
 	}
 
-	if m.GetSqs() != nil {
-		return "sqs"
+	if a.GetSqs() != nil && m.ServerStreaming() {
+		return "sqs_server_streaming"
+	}
+
+	if a.GetSqs() != nil && m.ClientStreaming() {
+		return "sqs_client_streaming"
 	}
 
 	return "error"
