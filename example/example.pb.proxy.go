@@ -7,6 +7,7 @@ import (
 	"context"
 	"crypto/tls"
 	"encoding/json"
+	"io"
 	"math"
 	"net"
 	"time"
@@ -17,7 +18,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/lambda"
 	"github.com/aws/aws-sdk-go/service/sqs"
 	"github.com/golang/protobuf/jsonpb"
-	"github.com/golang/protobuf/proto"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"go.uber.org/zap"
@@ -466,6 +466,7 @@ type srv struct {
 
 type service struct {
 	tlsCfg  *tls.Config
+	logger  *zap.Logger
 	session *session.Session
 	UnimplementedExampleServer
 }
@@ -492,7 +493,10 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 		}
 
 		ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
-		srv := &service{}
+		srv := &service{
+			session: s.opts.Session,
+			logger:  s.opts.Logger,
+		}
 
 		tlsConfig := &tls.Config{}
 		tlsConfig.InsecureSkipVerify = true
@@ -584,12 +588,18 @@ func (s *service) Update(ctx context.Context, req *Update_Request) (*Update_Resp
 }
 
 // Here goes a message ReceiveInserts
-func (s *service) ReceiveInserts(req *api.Sqs_Input, stream Example_ReceiveInsertsServer) error {
+func (s *service) ReceiveInserts(req *api.SQS_ReceiveMessageInput, stream Example_ReceiveInsertsServer) error {
+
+	queueUrl := req.GetQueueUrl()
 
 	svc := sqs.New(s.session)
+	ll := s.logger.With(zap.String("queue_url", queueUrl))
+
 	input := &sqs.ReceiveMessageInput{
-		QueueUrl:              aws.String(""),
+		QueueUrl:              aws.String(queueUrl),
 		MessageAttributeNames: aws.StringSlice(req.MessageAttributeNames),
+		MaxNumberOfMessages:   aws.Int64(req.MaxNumberOfMessages),
+		WaitTimeSeconds:       aws.Int64(req.WaitTimeSeconds),
 	}
 
 	output, err := svc.ReceiveMessageWithContext(stream.Context(), input)
@@ -597,54 +607,70 @@ func (s *service) ReceiveInserts(req *api.Sqs_Input, stream Example_ReceiveInser
 		return err
 	}
 
+	ll.Info("receiving messages", zap.Int("messages", len(output.Messages)))
+
+	receiptHandles := make([]*sqs.DeleteMessageBatchRequestEntry, 0, len(output.Messages))
+
 	for _, msg := range output.Messages {
-		var payload Song
-		if err := proto.Unmarshal([]byte(*msg.Body), &payload); err != nil {
+		ll.Info("streaming message", zap.String("message_id", aws.StringValue(msg.MessageId)))
+
+		m := &api.SQS_Message{
+			Body:      aws.StringValue(msg.Body),
+			MessageId: aws.StringValue(msg.MessageId),
+		}
+
+		if err := stream.Send(m); err != nil {
+			ll.Error("sending message", zap.Error(err))
+
 			return err
 		}
 
-		stream.Send(&payload)
+		receiptHandles = append(receiptHandles, &sqs.DeleteMessageBatchRequestEntry{Id: msg.MessageId, ReceiptHandle: msg.ReceiptHandle})
+	}
+
+	if len(receiptHandles) == 0 {
+		return nil
+	}
+
+	deleteMessageInput := sqs.DeleteMessageBatchInput{
+		QueueUrl: aws.String(queueUrl),
+		Entries:  receiptHandles,
+	}
+
+	ll.Info("deleting messages", zap.Int("messages", len(receiptHandles)))
+
+	_, err = svc.DeleteMessageBatch(&deleteMessageInput)
+	if err != nil {
+		ll.Error("deleting messages", zap.Error(err))
+
+		return err
 	}
 
 	return nil
-
 }
 
 // Here goes a message SendInserts
 func (s *service) SendInserts(stream Example_SendInsertsServer) error {
-
 	svc := sqs.New(s.session)
-
 	for {
 		msg, err := stream.Recv()
-		if err != nil {
-			return err
+		if err == io.EOF {
+			return stream.SendAndClose(&api.Empty{})
 		}
 
-		bb, err := msg.MarshalJSON()
 		if err != nil {
 			return err
 		}
 
 		input := &sqs.SendMessageInput{
-			QueueUrl:    aws.String(""),
-			MessageBody: aws.String(string(bb)),
+			QueueUrl:     aws.String(msg.GetQueueUrl()),
+			DelaySeconds: aws.Int64(msg.GetDelaySeconds()),
+			MessageBody:  aws.String(msg.MessageBody),
 		}
 
-		result, err := svc.SendMessage(input)
+		_, err = svc.SendMessage(input)
 		if err != nil {
 			return err
 		}
-
-		output := &api.Sqs_Output{
-			MD5OfMessageAttributes:       aws.StringValue(result.MD5OfMessageAttributes),
-			MD5OfMessageBody:             aws.StringValue(result.MD5OfMessageBody),
-			MD5OfMessageSystemAttributes: aws.StringValue(result.MD5OfMessageSystemAttributes),
-		}
-
-		if err := stream.SendMsg(output); err != nil {
-			return err
-		}
 	}
-
 }

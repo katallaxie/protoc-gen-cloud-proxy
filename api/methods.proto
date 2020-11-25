@@ -81,7 +81,6 @@ message Methods {
   }
 
   message SQS {
-    string queue_url      = 1;
   }
 
   message MSK {

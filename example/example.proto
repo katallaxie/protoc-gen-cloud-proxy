@@ -32,18 +32,14 @@ service Example {
   };
 
   // ReceiveInserts ...
-  rpc ReceiveInserts(amazon.api.Sqs.Input) returns (stream Song) {
-    option (amazon.api.methods).sqs = {
-      queue_url: ""
-    };
-  }
+  rpc ReceiveInserts(amazon.api.SQS.ReceiveMessageInput) returns (stream amazon.api.SQS.Message) {
+    option (amazon.api.methods).sqs = {};
+  };
 
   // SendInserts ...
-  rpc SendInserts(stream Song) returns (amazon.api.Sqs.Output) {
-    option (amazon.api.methods).sqs = {
-      queue_url: ""
-    };
-  }
+  rpc SendInserts(stream amazon.api.SQS.SendMessageInput) returns (amazon.api.Empty) {
+    option (amazon.api.methods).sqs = {};
+  };
 }
 
 // Song ...

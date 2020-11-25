@@ -658,7 +658,7 @@ var file_example_example_proto_rawDesc = []byte{
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x6e, 0x67, 0x52, 0x05, 0x73, 0x6f, 0x6e, 0x67,
 	0x73, 0x22, 0x1b, 0x0a, 0x0e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73, 0x65,
 	0x72, 0x74, 0x73, 0x1a, 0x09, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x22, 0x07,
-	0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0x98, 0x03, 0x0a, 0x07, 0x45, 0x78, 0x61, 0x6d,
+	0x0a, 0x05, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xc2, 0x03, 0x0a, 0x07, 0x45, 0x78, 0x61, 0x6d,
 	0x70, 0x6c, 0x65, 0x12, 0x81, 0x01, 0x0a, 0x06, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x12, 0x15,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x2e, 0x52, 0x65,
 	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x49, 0x6e,
@@ -676,15 +676,18 @@ var file_example_example_proto_rawDesc = []byte{
 	0x23, 0x41, 0x54, 0x12, 0x0a, 0x41, 0x6c, 0x62, 0x75, 0x6d, 0x54, 0x69, 0x74, 0x6c, 0x65, 0x3a,
 	0x0a, 0x0a, 0x02, 0x23, 0x59, 0x12, 0x04, 0x59, 0x65, 0x61, 0x72, 0x4a, 0x15, 0x53, 0x45, 0x54,
 	0x20, 0x23, 0x59, 0x20, 0x3d, 0x20, 0x3a, 0x79, 0x2c, 0x20, 0x23, 0x41, 0x54, 0x20, 0x3d, 0x20,
-	0x3a, 0x74, 0x12, 0x3f, 0x0a, 0x0e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73,
-	0x65, 0x72, 0x74, 0x73, 0x12, 0x15, 0x2e, 0x61, 0x6d, 0x61, 0x7a, 0x6f, 0x6e, 0x2e, 0x61, 0x70,
-	0x69, 0x2e, 0x53, 0x71, 0x73, 0x2e, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x1a, 0x0b, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x6e, 0x67, 0x22, 0x07, 0xf2, 0x94, 0x8c, 0x2f, 0x02, 0x22,
-	0x00, 0x30, 0x01, 0x12, 0x3d, 0x0a, 0x0b, 0x53, 0x65, 0x6e, 0x64, 0x49, 0x6e, 0x73, 0x65, 0x72,
-	0x74, 0x73, 0x12, 0x0b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x6f, 0x6e, 0x67, 0x1a,
-	0x16, 0x2e, 0x61, 0x6d, 0x61, 0x7a, 0x6f, 0x6e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x71, 0x73,
-	0x2e, 0x4f, 0x75, 0x74, 0x70, 0x75, 0x74, 0x22, 0x07, 0xf2, 0x94, 0x8c, 0x2f, 0x02, 0x22, 0x00,
-	0x28, 0x01, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x3a, 0x74, 0x12, 0x59, 0x0a, 0x0e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x49, 0x6e, 0x73,
+	0x65, 0x72, 0x74, 0x73, 0x12, 0x23, 0x2e, 0x61, 0x6d, 0x61, 0x7a, 0x6f, 0x6e, 0x2e, 0x61, 0x70,
+	0x69, 0x2e, 0x53, 0x51, 0x53, 0x2e, 0x52, 0x65, 0x63, 0x65, 0x69, 0x76, 0x65, 0x4d, 0x65, 0x73,
+	0x73, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x1a, 0x17, 0x2e, 0x61, 0x6d, 0x61, 0x7a,
+	0x6f, 0x6e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x51, 0x53, 0x2e, 0x4d, 0x65, 0x73, 0x73, 0x61,
+	0x67, 0x65, 0x22, 0x07, 0xf2, 0x94, 0x8c, 0x2f, 0x02, 0x22, 0x00, 0x30, 0x01, 0x12, 0x4d, 0x0a,
+	0x0b, 0x53, 0x65, 0x6e, 0x64, 0x49, 0x6e, 0x73, 0x65, 0x72, 0x74, 0x73, 0x12, 0x20, 0x2e, 0x61,
+	0x6d, 0x61, 0x7a, 0x6f, 0x6e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x53, 0x51, 0x53, 0x2e, 0x53, 0x65,
+	0x6e, 0x64, 0x4d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x70, 0x75, 0x74, 0x1a, 0x11,
+	0x2e, 0x61, 0x6d, 0x61, 0x7a, 0x6f, 0x6e, 0x2e, 0x61, 0x70, 0x69, 0x2e, 0x45, 0x6d, 0x70, 0x74,
+	0x79, 0x22, 0x07, 0xf2, 0x94, 0x8c, 0x2f, 0x02, 0x22, 0x00, 0x28, 0x01, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -701,21 +704,23 @@ func file_example_example_proto_rawDescGZIP() []byte {
 
 var file_example_example_proto_msgTypes = make([]protoimpl.MessageInfo, 13)
 var file_example_example_proto_goTypes = []interface{}{
-	(*Song)(nil),                   // 0: proto.Song
-	(*Insert)(nil),                 // 1: proto.Insert
-	(*Update)(nil),                 // 2: proto.Update
-	(*ListSongs)(nil),              // 3: proto.ListSongs
-	(*ReceiveInserts)(nil),         // 4: proto.ReceiveInserts
-	(*Empty)(nil),                  // 5: proto.Empty
-	(*Insert_Request)(nil),         // 6: proto.Insert.Request
-	(*Insert_Response)(nil),        // 7: proto.Insert.Response
-	(*Update_Request)(nil),         // 8: proto.Update.Request
-	(*Update_Response)(nil),        // 9: proto.Update.Response
-	(*ListSongs_Request)(nil),      // 10: proto.ListSongs.Request
-	(*ListSongs_Response)(nil),     // 11: proto.ListSongs.Response
-	(*ReceiveInserts_Request)(nil), // 12: proto.ReceiveInserts.Request
-	(*api.Sqs_Input)(nil),          // 13: amazon.api.Sqs.Input
-	(*api.Sqs_Output)(nil),         // 14: amazon.api.Sqs.Output
+	(*Song)(nil),                        // 0: proto.Song
+	(*Insert)(nil),                      // 1: proto.Insert
+	(*Update)(nil),                      // 2: proto.Update
+	(*ListSongs)(nil),                   // 3: proto.ListSongs
+	(*ReceiveInserts)(nil),              // 4: proto.ReceiveInserts
+	(*Empty)(nil),                       // 5: proto.Empty
+	(*Insert_Request)(nil),              // 6: proto.Insert.Request
+	(*Insert_Response)(nil),             // 7: proto.Insert.Response
+	(*Update_Request)(nil),              // 8: proto.Update.Request
+	(*Update_Response)(nil),             // 9: proto.Update.Response
+	(*ListSongs_Request)(nil),           // 10: proto.ListSongs.Request
+	(*ListSongs_Response)(nil),          // 11: proto.ListSongs.Response
+	(*ReceiveInserts_Request)(nil),      // 12: proto.ReceiveInserts.Request
+	(*api.SQS_ReceiveMessageInput)(nil), // 13: amazon.api.SQS.ReceiveMessageInput
+	(*api.SQS_SendMessageInput)(nil),    // 14: amazon.api.SQS.SendMessageInput
+	(*api.SQS_Message)(nil),             // 15: amazon.api.SQS.Message
+	(*api.Empty)(nil),                   // 16: amazon.api.Empty
 }
 var file_example_example_proto_depIdxs = []int32{
 	0,  // 0: proto.Insert.Request.Song:type_name -> proto.Song
@@ -723,12 +728,12 @@ var file_example_example_proto_depIdxs = []int32{
 	0,  // 2: proto.ListSongs.Response.songs:type_name -> proto.Song
 	6,  // 3: proto.Example.Insert:input_type -> proto.Insert.Request
 	8,  // 4: proto.Example.Update:input_type -> proto.Update.Request
-	13, // 5: proto.Example.ReceiveInserts:input_type -> amazon.api.Sqs.Input
-	0,  // 6: proto.Example.SendInserts:input_type -> proto.Song
+	13, // 5: proto.Example.ReceiveInserts:input_type -> amazon.api.SQS.ReceiveMessageInput
+	14, // 6: proto.Example.SendInserts:input_type -> amazon.api.SQS.SendMessageInput
 	7,  // 7: proto.Example.Insert:output_type -> proto.Insert.Response
 	9,  // 8: proto.Example.Update:output_type -> proto.Update.Response
-	0,  // 9: proto.Example.ReceiveInserts:output_type -> proto.Song
-	14, // 10: proto.Example.SendInserts:output_type -> amazon.api.Sqs.Output
+	15, // 9: proto.Example.ReceiveInserts:output_type -> amazon.api.SQS.Message
+	16, // 10: proto.Example.SendInserts:output_type -> amazon.api.Empty
 	7,  // [7:11] is the sub-list for method output_type
 	3,  // [3:7] is the sub-list for method input_type
 	3,  // [3:3] is the sub-list for extension type_name
@@ -936,7 +941,7 @@ type ExampleClient interface {
 	// Update ...
 	Update(ctx context.Context, in *Update_Request, opts ...grpc.CallOption) (*Update_Response, error)
 	// ReceiveInserts ...
-	ReceiveInserts(ctx context.Context, in *api.Sqs_Input, opts ...grpc.CallOption) (Example_ReceiveInsertsClient, error)
+	ReceiveInserts(ctx context.Context, in *api.SQS_ReceiveMessageInput, opts ...grpc.CallOption) (Example_ReceiveInsertsClient, error)
 	// SendInserts ...
 	SendInserts(ctx context.Context, opts ...grpc.CallOption) (Example_SendInsertsClient, error)
 }
@@ -967,7 +972,7 @@ func (c *exampleClient) Update(ctx context.Context, in *Update_Request, opts ...
 	return out, nil
 }
 
-func (c *exampleClient) ReceiveInserts(ctx context.Context, in *api.Sqs_Input, opts ...grpc.CallOption) (Example_ReceiveInsertsClient, error) {
+func (c *exampleClient) ReceiveInserts(ctx context.Context, in *api.SQS_ReceiveMessageInput, opts ...grpc.CallOption) (Example_ReceiveInsertsClient, error) {
 	stream, err := c.cc.NewStream(ctx, &_Example_serviceDesc.Streams[0], "/proto.Example/ReceiveInserts", opts...)
 	if err != nil {
 		return nil, err
@@ -983,7 +988,7 @@ func (c *exampleClient) ReceiveInserts(ctx context.Context, in *api.Sqs_Input, o
 }
 
 type Example_ReceiveInsertsClient interface {
-	Recv() (*Song, error)
+	Recv() (*api.SQS_Message, error)
 	grpc.ClientStream
 }
 
@@ -991,8 +996,8 @@ type exampleReceiveInsertsClient struct {
 	grpc.ClientStream
 }
 
-func (x *exampleReceiveInsertsClient) Recv() (*Song, error) {
-	m := new(Song)
+func (x *exampleReceiveInsertsClient) Recv() (*api.SQS_Message, error) {
+	m := new(api.SQS_Message)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -1009,8 +1014,8 @@ func (c *exampleClient) SendInserts(ctx context.Context, opts ...grpc.CallOption
 }
 
 type Example_SendInsertsClient interface {
-	Send(*Song) error
-	CloseAndRecv() (*api.Sqs_Output, error)
+	Send(*api.SQS_SendMessageInput) error
+	CloseAndRecv() (*api.Empty, error)
 	grpc.ClientStream
 }
 
@@ -1018,15 +1023,15 @@ type exampleSendInsertsClient struct {
 	grpc.ClientStream
 }
 
-func (x *exampleSendInsertsClient) Send(m *Song) error {
+func (x *exampleSendInsertsClient) Send(m *api.SQS_SendMessageInput) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *exampleSendInsertsClient) CloseAndRecv() (*api.Sqs_Output, error) {
+func (x *exampleSendInsertsClient) CloseAndRecv() (*api.Empty, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
-	m := new(api.Sqs_Output)
+	m := new(api.Empty)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
@@ -1040,7 +1045,7 @@ type ExampleServer interface {
 	// Update ...
 	Update(context.Context, *Update_Request) (*Update_Response, error)
 	// ReceiveInserts ...
-	ReceiveInserts(*api.Sqs_Input, Example_ReceiveInsertsServer) error
+	ReceiveInserts(*api.SQS_ReceiveMessageInput, Example_ReceiveInsertsServer) error
 	// SendInserts ...
 	SendInserts(Example_SendInsertsServer) error
 }
@@ -1055,7 +1060,7 @@ func (*UnimplementedExampleServer) Insert(context.Context, *Insert_Request) (*In
 func (*UnimplementedExampleServer) Update(context.Context, *Update_Request) (*Update_Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
-func (*UnimplementedExampleServer) ReceiveInserts(*api.Sqs_Input, Example_ReceiveInsertsServer) error {
+func (*UnimplementedExampleServer) ReceiveInserts(*api.SQS_ReceiveMessageInput, Example_ReceiveInsertsServer) error {
 	return status.Errorf(codes.Unimplemented, "method ReceiveInserts not implemented")
 }
 func (*UnimplementedExampleServer) SendInserts(Example_SendInsertsServer) error {
@@ -1103,7 +1108,7 @@ func _Example_Update_Handler(srv interface{}, ctx context.Context, dec func(inte
 }
 
 func _Example_ReceiveInserts_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(api.Sqs_Input)
+	m := new(api.SQS_ReceiveMessageInput)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
@@ -1111,7 +1116,7 @@ func _Example_ReceiveInserts_Handler(srv interface{}, stream grpc.ServerStream) 
 }
 
 type Example_ReceiveInsertsServer interface {
-	Send(*Song) error
+	Send(*api.SQS_Message) error
 	grpc.ServerStream
 }
 
@@ -1119,7 +1124,7 @@ type exampleReceiveInsertsServer struct {
 	grpc.ServerStream
 }
 
-func (x *exampleReceiveInsertsServer) Send(m *Song) error {
+func (x *exampleReceiveInsertsServer) Send(m *api.SQS_Message) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -1128,8 +1133,8 @@ func _Example_SendInserts_Handler(srv interface{}, stream grpc.ServerStream) err
 }
 
 type Example_SendInsertsServer interface {
-	SendAndClose(*api.Sqs_Output) error
-	Recv() (*Song, error)
+	SendAndClose(*api.Empty) error
+	Recv() (*api.SQS_SendMessageInput, error)
 	grpc.ServerStream
 }
 
@@ -1137,12 +1142,12 @@ type exampleSendInsertsServer struct {
 	grpc.ServerStream
 }
 
-func (x *exampleSendInsertsServer) SendAndClose(m *api.Sqs_Output) error {
+func (x *exampleSendInsertsServer) SendAndClose(m *api.Empty) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *exampleSendInsertsServer) Recv() (*Song, error) {
-	m := new(Song)
+func (x *exampleSendInsertsServer) Recv() (*api.SQS_SendMessageInput, error) {
+	m := new(api.SQS_SendMessageInput)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
 	}

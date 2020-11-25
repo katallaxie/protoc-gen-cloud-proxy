@@ -1,33 +1,24 @@
 package templates
 
-const sqsClientStreamingTpl = `
-svc := sqs.New(s.session)
-
+const sqsClientStreamingTpl = `svc := sqs.New(s.session)
 for {
   msg, err := stream.Recv()
-  if err != nil {
-    return err
+  if err == io.EOF {
+    return stream.SendAndClose(&api.Empty{})
   }
 
-  bb, err := msg.MarshalJSON()
   if err != nil {
     return err
   }
 
   input := &sqs.SendMessageInput{
-    QueueUrl:    aws.String(""),
-    MessageBody: aws.String(string(bb)),
+    QueueUrl:               aws.String(msg.GetQueueUrl()),
+    DelaySeconds:           aws.Int64(msg.GetDelaySeconds()),
+    MessageBody:            aws.String(msg.MessageBody),
   }
 
-  _, err := svc.SendMessage(input)
+  _, err = svc.SendMessage(input)
   if err != nil {
     return err
   }
-
-  output := &api.Sqs_Output{}
-
-  if err := stream.SendMsg(output); err != nil {
-    return err
-  }
-}
-`
+}`

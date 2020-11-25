@@ -11,7 +11,8 @@ import (
 	"encoding/json"
 	"math"
 	"net"
-	"time"
+  "time"
+  "io"
 
 	"github.com/aws/aws-sdk-go/aws/session"
   "github.com/aws/aws-sdk-go/service/lambda"
@@ -20,7 +21,6 @@ import (
   "google.golang.org/grpc"
   "google.golang.org/grpc/health"
   "google.golang.org/grpc/keepalive"
-  "github.com/golang/protobuf/proto"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
   grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
   grpc_health_v1 "google.golang.org/grpc/health/grpc_health_v1"

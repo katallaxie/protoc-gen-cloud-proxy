@@ -8,6 +8,7 @@ type srv struct {
 
 type service struct {
   tlsCfg *tls.Config
+  logger *zap.Logger
   session *session.Session
 	UnimplementedExampleServer
 }
@@ -34,7 +35,10 @@ func (s *srv) Start(ctx context.Context, ready func()) func() error {
 		}
 
 		ll := s.opts.Logger.With(zap.String("addr", s.opts.Addr))
-		srv := &service{}
+		srv := &service{
+      session: s.opts.Session,
+      logger: s.opts.Logger,
+    }
 
 		tlsConfig := &tls.Config{}
 		tlsConfig.InsecureSkipVerify = true

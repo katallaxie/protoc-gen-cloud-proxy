@@ -55,6 +55,8 @@ func resolveMethods(a *api.Methods, m pgs.Method) string {
 	}
 
 	if a.GetSqs() != nil && m.ServerStreaming() {
+		m.Name()
+
 		return "sqs_server_streaming"
 	}
 
