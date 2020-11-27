@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package amazon.api;
-option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;annotations";
+option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;api";
 
 // A generic empty message ...
 message Empty{}

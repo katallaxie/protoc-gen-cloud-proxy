@@ -3,7 +3,7 @@ syntax = "proto3";
 package amazon.api;
 
 option cc_enable_arenas = true;
-option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;annotations";
+option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;api";
 
 message Fields {
   string selector = 1;
