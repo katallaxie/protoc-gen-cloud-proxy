@@ -3,10 +3,14 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math/rand"
+	"os"
+	"path/filepath"
 	"time"
 
+	"github.com/katallaxie/protoc-gen-cloud-proxy/internal/gen/aws"
 	o "github.com/katallaxie/protoc-gen-cloud-proxy/internal/gen/opts"
 
 	"github.com/spf13/cobra"
@@ -17,6 +21,22 @@ var root = &cobra.Command{
 	Use: "proto-gen-cli",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		opts.Logger.Info("running code generation")
+
+		var globs []string
+		for i, g := range args {
+			globs[i] = g
+		}
+		_ = filepath.FromSlash(opts.Path)
+
+		modelPaths, err := aws.ExpandModelGlobPath(globs...)
+		if err != nil {
+			fmt.Fprintln(os.Stderr, "failed to glob file pattern", err)
+			os.Exit(1)
+		}
+		modelPaths, _ = aws.TrimModelServiceVersions(modelPaths)
+
+		loader := aws.New()
+		_, err = loader.Load(modelPaths)
 
 		return nil
 	},
