@@ -6,6 +6,7 @@ require (
 	github.com/andersnormal/pkg v0.0.0-20200822073041-145047024b6c
 	github.com/aws/aws-lambda-go v1.20.0
 	github.com/aws/aws-sdk-go v1.35.14
+	github.com/cgentron/api v0.0.0-20201218130507-cf3a90cbca70
 	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
@@ -18,7 +19,7 @@ require (
 	github.com/valyala/fasthttp v1.16.0
 	go.uber.org/zap v1.10.0
 	google.golang.org/grpc v1.33.1
-	google.golang.org/protobuf v1.23.0
+	google.golang.org/protobuf v1.25.0
 	gopkg.in/check.v1 v1.0.0-20190902080502-41f04d3bba15 // indirect
 	gopkg.in/yaml.v2 v2.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776

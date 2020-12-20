@@ -1,6 +1,8 @@
 syntax = "proto3";
 
-package amazon.api;
+package cgentron.api;
+
+import "resolver.proto";
 
 option cc_enable_arenas = true;
 option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;api";
@@ -8,12 +10,7 @@ option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;api";
 message Fields {
   string selector = 1;
 
-  message DynamoDB {
-    string ExpressionValue = 1;
-    string Key = 2;
-  }
-
   oneof pattern {
-    DynamoDB dynamodb   = 10;
+    ResolverRule resolver   = 10;
   }
 }

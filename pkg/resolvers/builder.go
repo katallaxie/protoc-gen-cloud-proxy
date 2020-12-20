@@ -7,10 +7,31 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/cgentron/api/iface"
+
 	"github.com/mitchellh/mapstructure"
 	"github.com/traefik/yaegi/interp"
 	"github.com/traefik/yaegi/stdlib"
 )
+
+// Symbols variable stores the map of stdlib symbols per package.
+var Symbols = map[string]map[string]reflect.Value{}
+
+func init() {
+	Symbols["github.com/cgentron/api/iface"] = map[string]reflect.Value{
+		"ResolverHandler":  reflect.ValueOf((*iface.ResolverHandler)(nil)),
+		"_ResolverHandler": reflect.ValueOf((*_iface_resolver_Handler)(nil)),
+	}
+}
+
+// _iface_resolver_Handler is an interface wrapper for Handler type
+type _iface_resolver_Handler struct {
+	WResolve func(a0 context.Context, a1 []byte) ([]byte, error)
+}
+
+func (W _iface_resolver_Handler) Resolve(a0 context.Context, a1 []byte) ([]byte, error) {
+	return W.WResolve(a0, a1)
+}
 
 // Descriptor The static part of a plugin configuration (prod).
 type Descriptor struct {
@@ -28,25 +49,6 @@ type DevPlugin struct {
 
 	// ModuleName (required)
 	ModuleName string `description:"plugin's module name."  json:"moduleName,omitempty" toml:"moduleName,omitempty" yaml:"moduleName,omitempty"`
-}
-
-// Manifest The plugin manifest.
-type Manifest struct {
-	DisplayName   string                 `yaml:"displayName"`
-	Type          string                 `yaml:"type"`
-	Import        string                 `yaml:"import"`
-	BasePkg       string                 `yaml:"basePkg"`
-	Compatibility string                 `yaml:"compatibility"`
-	Summary       string                 `yaml:"summary"`
-	TestData      map[string]interface{} `yaml:"testData"`
-}
-
-// Constructor ...
-type Constructor func() (ResolverHandler, error)
-
-// ResolverHandler ...
-type ResolverHandler interface {
-	Resolve(context.Context, []byte) ([]byte, error)
 }
 
 type resolverContext struct {
@@ -79,6 +81,7 @@ func NewBuilder(client *Client, resolvers map[string]Descriptor) (*Builder, erro
 
 		i := interp.New(interp.Options{GoPath: client.GoPath()})
 		i.Use(stdlib.Symbols)
+		i.Use(Symbols)
 
 		_, err = i.Eval(fmt.Sprintf(`import "%s"`, manifest.Import))
 		if err != nil {
@@ -89,7 +92,6 @@ func NewBuilder(client *Client, resolvers map[string]Descriptor) (*Builder, erro
 			interpreter: i,
 			GoPath:      client.GoPath(),
 			Import:      manifest.Import,
-			BasePkg:     manifest.BasePkg,
 		}
 	}
 
@@ -97,7 +99,7 @@ func NewBuilder(client *Client, resolvers map[string]Descriptor) (*Builder, erro
 }
 
 // Build ...
-func (b *Builder) Build(name string, config map[string]interface{}, middlewareName string) (Constructor, error) {
+func (b *Builder) Build(name string, config map[string]interface{}, resolverName string) (iface.Constructor, error) {
 	if b.descriptors == nil {
 		return nil, fmt.Errorf("plugin: no plugin definition in the static configuration: %s", name)
 	}
@@ -107,7 +109,7 @@ func (b *Builder) Build(name string, config map[string]interface{}, middlewareNa
 		return nil, fmt.Errorf("plugin: unknown plugin type: %s", name)
 	}
 
-	r, err := newResolver(descriptor, config, middlewareName)
+	r, err := newResolver(descriptor, config, resolverName)
 	if err != nil {
 		return nil, err
 	}
@@ -115,14 +117,14 @@ func (b *Builder) Build(name string, config map[string]interface{}, middlewareNa
 	return r.NewResolver, err
 }
 
-// Middleware ...
+// Resolver ...
 type Resolver struct {
-	middlewareName string
-	fnNew          reflect.Value
-	config         reflect.Value
+	resolverName string
+	fnNew        reflect.Value
+	config       reflect.Value
 }
 
-func newResolver(descriptor resolverContext, config map[string]interface{}, middlewareName string) (*Resolver, error) {
+func newResolver(descriptor resolverContext, config map[string]interface{}, resolverName string) (*Resolver, error) {
 	basePkg := descriptor.BasePkg
 	if basePkg == "" {
 		basePkg = strings.ReplaceAll(path.Base(descriptor.Import), "-", "_")
@@ -155,25 +157,25 @@ func newResolver(descriptor resolverContext, config map[string]interface{}, midd
 	}
 
 	return &Resolver{
-		middlewareName: middlewareName,
-		fnNew:          fnNew,
-		config:         vConfig,
+		resolverName: resolverName,
+		fnNew:        fnNew,
+		config:       vConfig,
 	}, nil
 }
 
 // NewResolver ...
-func (m *Resolver) NewResolver() (ResolverHandler, error) {
-	// args := []reflect.Value{reflect.ValueOf(ctx), reflect.ValueOf(next), m.config, reflect.ValueOf(m.middlewareName)}
-	// results := m.fnNew.Call(args)
+func (m *Resolver) NewResolver() (iface.ResolverHandler, error) {
+	args := []reflect.Value{m.config, reflect.ValueOf(m.resolverName)}
+	results := m.fnNew.Call(args)
 
-	// if len(results) > 1 && results[1].Interface() != nil {
-	// 	return nil, results[1].Interface().(error)
-	// }
+	if len(results) > 1 && results[1].Interface() != nil {
+		return nil, results[1].Interface().(error)
+	}
 
-	// handler, ok := results[0].Interface().(http.Handler)
-	// if !ok {
-	// 	return nil, fmt.Errorf("plugin: invalid handler type: %T", results[0].Interface())
-	// }
+	resolver, ok := results[0].Interface().(iface.ResolverHandler)
+	if !ok {
+		return nil, fmt.Errorf("plugin: invalid handler type: %T", results[0].Interface())
+	}
 
-	return nil, nil
+	return resolver, nil
 }

@@ -12,6 +12,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cgentron/api/iface"
+
 	"gopkg.in/yaml.v3"
 )
 
@@ -138,12 +140,12 @@ func (c *Client) Unzip(name, version string) error {
 }
 
 // ReadManifest reads a plugin manifest.
-func (c *Client) ReadManifest(moduleName string) (*Manifest, error) {
+func (c *Client) ReadManifest(moduleName string) (*iface.Manifest, error) {
 	return ReadManifest(c.opts.GoPath, moduleName)
 }
 
 // ReadManifest reads a plugin manifest.
-func ReadManifest(goPath, moduleName string) (*Manifest, error) {
+func ReadManifest(goPath, moduleName string) (*iface.Manifest, error) {
 	p := filepath.Join(goPath, goPathSrc, filepath.FromSlash(moduleName), manifest)
 
 	file, err := os.Open(p)
@@ -153,7 +155,7 @@ func ReadManifest(goPath, moduleName string) (*Manifest, error) {
 
 	defer func() { _ = file.Close() }()
 
-	m := &Manifest{}
+	m := &iface.Manifest{}
 	err = yaml.NewDecoder(file).Decode(m)
 	if err != nil {
 		return nil, fmt.Errorf("failed to decode the plugin manifest %s: %w", p, err)

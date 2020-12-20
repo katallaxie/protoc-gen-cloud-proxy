@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package amazon.api;
+package cgentron.api;
 
 import "methods.proto";
 import "fields.proto";

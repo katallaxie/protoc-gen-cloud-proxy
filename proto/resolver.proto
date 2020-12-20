@@ -2,16 +2,11 @@ syntax = "proto3";
 
 package cgentron.api;
 
-import "resolver.proto";
-
 option cc_enable_arenas = true;
 option go_package = "github.com/katallaxie/protoc-gen-cloud-proxy/api;api";
 
-// Methods are extensions ...
-message Methods {
-  string selector = 1;
-
-  oneof pattern {
-    ResolverRule resolver = 10;
-  }
+message ResolverRule {
+  string name = 1;
+  string url = 2;
+  string version = 3;
 }
