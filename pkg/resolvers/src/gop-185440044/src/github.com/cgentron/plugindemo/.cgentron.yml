@@ -1,6 +1,0 @@
-name: Demo Plugin
-description: '[Demo] just loopback message'
-
-type: resolver
-
-import: github.com/cgentron/plugindemo

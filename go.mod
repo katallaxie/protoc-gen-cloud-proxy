@@ -6,7 +6,7 @@ require (
 	github.com/andersnormal/pkg v0.0.0-20200822073041-145047024b6c
 	github.com/aws/aws-lambda-go v1.20.0
 	github.com/aws/aws-sdk-go v1.35.14
-	github.com/cgentron/api v0.0.0-20201218130507-cf3a90cbca70
+	github.com/cgentron/api v0.0.0-20201220084924-95323a3b65e6
 	github.com/golang/protobuf v1.4.3
 	github.com/google/uuid v1.1.2
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
